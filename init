@@ -1,4 +1,4 @@
-sudo apt install stow
+sudo apt update && sudo apt install stow
 rm -f ~/.bashrc ~/.vimrc
 stow bash
 stow vim
