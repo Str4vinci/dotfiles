@@ -1,6 +1,8 @@
 set number
 set relativenumber
 set mouse=a
+imap jj <esc>
+set timeoutlen=190
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -163,3 +165,4 @@ function! s:TmuxAwareNavigate(direction)
     let s:tmux_is_last_pane = 0
   endif
 endfunction
+
