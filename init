@@ -1,5 +1,5 @@
 sudo apt update && sudo apt install stow tmux
-rm -f ~/.bashrc ~/.vimrc
+rm -f ~/.bashrc ~/.vimrc ~/.bash_aliases
 stow bash
 stow vim
 stow tmux

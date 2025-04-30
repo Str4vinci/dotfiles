@@ -116,4 +116,3 @@ if ! shopt -oq posix; then
   fi
 fi
 set -o vi
-alias venvpy=".venv/bin/python"
