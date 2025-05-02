@@ -3,9 +3,12 @@ set relativenumber
 set mouse=a
 imap jj <esc>
 set timeoutlen=190
-set ts=4 sw=4
-set showmatch " Shows matching brackets
-set smarttab " Autotabs for certain code
+set expandtab     " Converts tabs to spaces
+set tabstop=4     " Number of spaces that a tab counts for
+set shiftwidth=4  " Number of spaces used for autoindent
+set softtabstop=4 " Number of spaces a <Tab> feels like
+set smarttab      " Makes <Tab> smarter when used at the start of a line
+set showmatch     " Show matching brackets
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
