@@ -3,6 +3,9 @@ set relativenumber
 set mouse=a
 imap jj <esc>
 set timeoutlen=190
+set ts=4 sw=4
+set showmatch " Shows matching brackets
+set smarttab " Autotabs for certain code
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
