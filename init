@@ -1,6 +1,13 @@
+#!/usr/bin/env bash
+
+# Install brew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 sudo apt update && sudo apt install stow tmux zsh
 rm -f ~/.bashrc ~/.vimrc ~/.bash_aliases
 stow bash
 stow vim
 stow tmux
 stow zsh
+
+brew install tree duckdb
