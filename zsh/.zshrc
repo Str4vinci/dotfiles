@@ -44,3 +44,5 @@ alias la='ls -A'
 alias l='ls -CF'
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+bindkey "^H" backward-delete-char
+bindkey "^?" backward-delete-char
