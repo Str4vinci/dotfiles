@@ -3,6 +3,8 @@
 # Install brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+export PATH="eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\":$PATH"
+
 sudo apt update && sudo apt install stow tmux zsh
 rm -f ~/.bashrc ~/.vimrc ~/.bash_aliases
 stow bash
