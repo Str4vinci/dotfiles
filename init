@@ -5,11 +5,14 @@
 
 export PATH="eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\":$PATH"
 
+
 sudo apt update && sudo apt install stow tmux zsh
 rm -f ~/.bashrc ~/.vimrc ~/.bash_aliases
 stow bash
 stow vim
 stow tmux
 stow zsh
+
+chsh -s $(which zsh)
 
 brew install tree duckdb
