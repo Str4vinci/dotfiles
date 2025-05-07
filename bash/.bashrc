@@ -116,3 +116,5 @@ if ! shopt -oq posix; then
   fi
 fi
 set -o vi
+export PATH=/home/leonardo/.duckdb/cli/latest:$PATH
+export EDITOR=vim
