@@ -5,7 +5,7 @@
 
 brew=/home/linuxbrew/.linuxbrew/bin/brew 
 
-sudo apt update && sudo apt install stow tmux zsh
+sudo apt update && sudo apt install -y stow tmux zsh
 rm -f ~/.bashrc ~/.vimrc ~/.bash_aliases
 stow bash
 stow vim
@@ -14,4 +14,4 @@ stow zsh
 
 chsh -s $(which zsh)
 
-brew install tree duckdb
+/home/linuxbrew/.linuxbrew/bin/brew install tree duckdb
