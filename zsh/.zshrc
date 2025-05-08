@@ -2,7 +2,6 @@
 
 autoload -Uz promptinit
 promptinit
-prompt adam1
 
 setopt histignorealldups sharehistory
 
@@ -46,3 +45,19 @@ alias l='ls -CF'
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 bindkey "^H" backward-delete-char
 bindkey "^?" backward-delete-char
+setopt prompt_subst
+
+# Load version control information
+autoload -Uz vcs_info
+
+# Set up vcs_info parameters
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git:*' formats '(%b)'
+
+# This function runs before each prompt is displayed
+precmd() {
+  vcs_info
+}
+
+# Set up the prompt - MUST come after setting prompt_subst
+PROMPT='%F{magenta}${vcs_info_msg_0_}%f%F{cyan}%n%f@%F{yellow}%~%f %F{green}%%%f%F{reset} '
