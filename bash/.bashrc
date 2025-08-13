@@ -118,3 +118,5 @@ fi
 set -o vi
 export PATH=/home/leonardo/.duckdb/cli/latest:$PATH
 export EDITOR=vim
+
+source /home/leonardo/.config/broot/launcher/bash/br
