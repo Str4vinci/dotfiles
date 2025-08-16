@@ -62,4 +62,4 @@ precmd() {
 # Set up the prompt - MUST come after setting prompt_subst
 PROMPT='%F{magenta}${vcs_info_msg_0_}%f%F{cyan}%n%f@%F{yellow}%~%f %F{green}%%%f%F{reset} '
 
-source /home/leonardo/.config/broot/launcher/bash/br
+source /home/leonardo/.config/broot/launcher/zsh/br

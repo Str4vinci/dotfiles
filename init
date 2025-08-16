@@ -9,10 +9,10 @@ sudo apt install -y curl
 
 sudo apt install -y stow tmux zsh
 rm -f ~/.bashrc ~/.vimrc ~/.bash_aliases
-stow bash
-stow vim
-stow tmux
-stow zsh
+stow -t ~ bash
+stow -t ~ vim
+stow -t ~ tmux
+stow -t ~ zsh
 
 chsh -s $(which zsh)
 
