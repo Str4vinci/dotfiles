@@ -171,4 +171,4 @@ function! s:TmuxAwareNavigate(direction)
     let s:tmux_is_last_pane = 0
   endif
 endfunction
-
+set clipboard+=unnamedplus
