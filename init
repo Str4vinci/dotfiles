@@ -3,6 +3,8 @@
 # Install brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+/bin/bash -c "$(curl -LsSf https://astral.sh/uv/install.sh | sh)
+
 sudo apt update && sudo apt install -y stow tmux zsh
 rm -f ~/.bashrc ~/.vimrc ~/.bash_aliases
 stow bash
