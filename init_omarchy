@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -e
+
+# Update system
+sudo pacman -Syu --noconfirm
+
+# Install base tools
+sudo pacman -S --noconfirm \
+  curl \
+  stow \
+  tmux \
+  zsh \
+  tree \
+  broot \
+  bat \
+  glow
+
+yay -S --noconfirm duckdb-bin
+
+# Optional: remove bash dotfiles (safe but not required)
+rm -f ~/.bashrc ~/.bash_aliases ~/.vimrc ~/.zshrc
+
+# Stow dotfiles (run from dotfiles repo root)
+stow -t ~ bash
+stow -t ~ vim
+stow -t ~ tmux
+stow -t ~ zsh
+
+# Set zsh as default shell
+chsh -s /usr/bin/zsh
+
