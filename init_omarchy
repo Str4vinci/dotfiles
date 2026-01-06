@@ -25,6 +25,7 @@ stow -t ~ bash
 stow -t ~ vim
 stow -t ~ tmux
 stow -t ~ zsh
+stow -t ~ hypr
 
 # Set zsh as default shell
 chsh -s /usr/bin/zsh
