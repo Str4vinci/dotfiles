@@ -60,6 +60,8 @@ precmd() {
 }
 
 # Set up the prompt - MUST come after setting prompt_subst
-PROMPT='%F{magenta}${vcs_info_msg_0_}%f%F{cyan}%n%f@%F{yellow}%~%f %F{green}%%%f%F{reset} '
+PROMPT='%F{magenta}${vcs_info_msg_0_}%f%F{cyan}%n%f@%F{yellow}%~%f %F{green}%%%f%f '
 
-source "$HOME/.config/broot/launcher/bash/br"
+if [ -f "$HOME/.config/broot/launcher/zsh/br" ]; then
+    source "$HOME/.config/broot/launcher/zsh/br"
+fi.config/broot/launcher/bash/br

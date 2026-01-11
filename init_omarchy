@@ -20,6 +20,10 @@ yay -S --noconfirm duckdb-bin
 # Optional: remove bash dotfiles (safe but not required)
 rm -f ~/.bashrc ~/.bash_aliases ~/.vimrc ~/.zshrc
 
+if [ -f ~/.config/hypr/bindings.conf ]; then
+    mv ~/.config/hypr/bindings.conf ~/.config/hypr/bindings.conf.backup
+fi
+
 # Stow dotfiles (run from dotfiles repo root)
 stow -t ~ bash
 stow -t ~ vim
