@@ -42,7 +42,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+#eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 bindkey "^H" backward-delete-char
 bindkey "^?" backward-delete-char
 setopt prompt_subst
@@ -64,4 +64,6 @@ PROMPT='%F{magenta}${vcs_info_msg_0_}%f%F{cyan}%n%f@%F{yellow}%~%f %F{green}%%%f
 
 if [ -f "$HOME/.config/broot/launcher/zsh/br" ]; then
     source "$HOME/.config/broot/launcher/zsh/br"
-fi.config/broot/launcher/bash/br
+fi
+
+source /home/stravinci/.config/broot/launcher/bash/br
