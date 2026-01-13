@@ -67,3 +67,5 @@ if [ -f "$HOME/.config/broot/launcher/zsh/br" ]; then
 fi
 
 source /home/stravinci/.config/broot/launcher/bash/br
+
+. "$HOME/.local/share/../bin/env"
