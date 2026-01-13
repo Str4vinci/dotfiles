@@ -17,6 +17,9 @@ sudo pacman -S --noconfirm \
 
 yay -S --noconfirm duckdb-bin
 
+# Install gazelle-tui for eduroam/enterprise WiFi support
+yay -S --noconfirm gazelle-tui
+
 # Optional: remove bash dotfiles (safe but not required)
 rm -f ~/.bashrc ~/.bash_aliases ~/.vimrc ~/.zshrc
 

@@ -76,7 +76,7 @@
     "tooltip-format-disconnected": "Disconnected",
     "interval": 3,
     "spacing": 1,
-    "on-click": "omarchy-launch-wifi"
+    "on-click": "omarchy-launch-or-focus-tui gazelle"
   },
   "battery": {
     "format": "{icon} {capacity}%",
