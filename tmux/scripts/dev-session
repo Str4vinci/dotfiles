@@ -1,0 +1,107 @@
+#!/bin/bash
+
+# Development Environment Tmux Session Script
+# Creates a tmux session with windows for PhD and WebApp development
+
+SESSION_NAME="dev"
+
+# Function to create a window if directory exists
+create_window_if_exists() {
+    local session="$1"
+    local window_name="$2"
+    local directory="$3"
+    local window_index="$4"
+    
+    if [ -d "$directory" ]; then
+        if [ "$window_index" -eq 1 ]; then
+            # Create first window with session
+            tmux new-session -d -s "$session_name" -c "$directory" -n "$window_name"
+        else
+            # Create additional windows
+            tmux new-window -t "$session_name:$window_index" -c "$directory" -n "$window_name"
+        fi
+        echo "Created window: $window_name -> $directory"
+        return 0
+    else
+        echo "Directory not found, skipping window: $directory"
+        return 1
+    fi
+}
+
+# Check if session already exists
+if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+    echo "Session '$SESSION_NAME' already exists. Attaching..."
+    tmux attach-session -t "$SESSION_NAME"
+    exit 0
+fi
+
+echo "Creating development session '$SESSION_NAME'..."
+
+# Define project directories (relative to $HOME)
+PHD_DEV_DIR="$HOME/Work/phd/dev"
+WEBAPP_DIR="$HOME/Work/webapp_mockup"
+
+# Track window index for proper numbering
+window_index=1
+
+# Create PhD development windows
+if [ -d "$PHD_DEV_DIR" ]; then
+    # First PhD window
+    tmux new-session -d -s "$SESSION_NAME" -c "$PHD_DEV_DIR" -n "PhD run"
+    echo "Created window: PhD run -> $PHD_DEV_DIR"
+    window_index=2
+    
+    # Second PhD window
+    tmux new-window -t "$SESSION_NAME:$window_index" -c "$PHD_DEV_DIR" -n "PhD dev"
+    echo "Created window: PhD dev -> $PHD_DEV_DIR"
+    window_index=3
+else
+    echo "Directory not found: $PHD_DEV_DIR"
+fi
+
+# Create WebApp windows
+if [ -d "$WEBAPP_DIR" ]; then
+    # If no PhD windows exist, create first webapp window as session
+    if [ $window_index -eq 1 ]; then
+        tmux new-session -d -s "$SESSION_NAME" -c "$WEBAPP_DIR" -n "WebApp npm"
+        echo "Created window: WebApp npm -> $WEBAPP_DIR"
+        window_index=2
+    else
+        tmux new-window -t "$SESSION_NAME:$window_index" -c "$WEBAPP_DIR" -n "WebApp npm"
+        echo "Created window: WebApp npm -> $WEBAPP_DIR"
+        window_index=$((window_index + 1))
+    fi
+    
+    # Second webapp window
+    tmux new-window -t "$SESSION_NAME:$window_index" -c "$WEBAPP_DIR" -n "WebApp dev"
+    echo "Created window: WebApp dev -> $WEBAPP_DIR"
+    window_index=$((window_index + 1))
+else
+    echo "Directory not found: $WEBAPP_DIR"
+fi
+
+# Create "Other" window for general use in home directory
+if [ -d "$HOME" ]; then
+    # If no other windows exist, create "Other" window as session
+    if [ $window_index -eq 1 ]; then
+        tmux new-session -d -s "$SESSION_NAME" -c "$HOME" -n "Other"
+        echo "Created window: Other -> $HOME"
+    else
+        tmux new-window -t "$SESSION_NAME:$window_index" -c "$HOME" -n "Other"
+        echo "Created window: Other -> $HOME"
+    fi
+else
+    echo "Home directory not found, skipping Other window"
+fi
+
+# Check if any windows were created
+if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+    echo "No valid directories found. Session not created."
+    exit 1
+fi
+
+# Select the first window and attach
+tmux select-window -t "$SESSION_NAME:1"
+tmux attach-session -t "$SESSION_NAME"
+
+echo "Development session '$SESSION_NAME' is ready!"

@@ -18,6 +18,9 @@ autoload -Uz compinit
 compinit
 
 zstyle ':completion:*' auto-description 'specify: %d'
+
+# Ensure system Python takes precedence for system applications like Calibre
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.local/share/../bin"
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
@@ -69,3 +72,7 @@ fi
 source /home/stravinci/.config/broot/launcher/bash/br
 
 . "$HOME/.local/share/../bin/env"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.local/share/../bin"
+
+# Development environment tmux session
+alias dev="$HOME/dotfiles/tmux/scripts/dev-session"
