@@ -34,6 +34,7 @@ stow -t ~ tmux
 stow -t ~ zsh
 stow -t ~ hypr
 stow -t ~ waybar
+stow -t ~ omarchy
 
 # Set zsh as default shell
 chsh -s /usr/bin/zsh
