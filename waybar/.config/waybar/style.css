@@ -91,3 +91,12 @@ tooltip {
 #custom-voxtype.recording {
   color: #a55555;
 }
+
+#custom-vpn {
+  min-width: 12px;
+  margin: 0 7.5px;
+}
+
+#custom-vpn.connected {
+  color: #81a1c1;
+}

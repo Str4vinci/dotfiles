@@ -10,6 +10,7 @@
     "group/tray-expander",
     "bluetooth",
     "network",
+    "custom/vpn",
     "pulseaudio",
     "cpu"
   ],
@@ -156,5 +157,14 @@
   "tray": {
     "icon-size": 12,
     "spacing": 17
+  },
+  "custom/vpn": {
+    "exec": "/home/stravinci/.local/share/omarchy/default/waybar/indicators/vpn.sh",
+    "return-type": "json",
+    "signal": 9,
+    "format": "{}",
+    "tooltip": true,
+    "on-click": "nmcli connection down '$(nmcli -t -f NAME,DEVICE connection show --active | grep proton | cut -d\":\" -f1)' 2>/dev/null || true",
+    "on-click-right": "omarchy-launch-floating-terminal-with-presentation protonvpn connect"
   }
 }
