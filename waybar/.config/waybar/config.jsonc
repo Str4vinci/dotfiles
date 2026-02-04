@@ -161,10 +161,10 @@
   "custom/vpn": {
     "exec": "/home/stravinci/.local/share/omarchy/default/waybar/indicators/vpn.sh",
     "return-type": "json",
-    "signal": 9,
+    "interval": 3,
     "format": "{}",
     "tooltip": true,
-    "on-click": "nmcli connection down '$(nmcli -t -f NAME,DEVICE connection show --active | grep proton | cut -d\":\" -f1)' 2>/dev/null || true",
+    "on-click": "/home/stravinci/.local/share/omarchy/default/waybar/indicators/vpn-toggle.sh",
     "on-click-right": "omarchy-launch-floating-terminal-with-presentation protonvpn connect"
   }
 }

@@ -10,6 +10,6 @@ if [ -n "$VPN_CONNECTION" ]; then
     # Connected - show icon and tooltip
     printf '{"text": "󰖂", "tooltip": "%s", "class": "connected"}\n' "$CONNECTION_NAME"
 else
-    # Disconnected - hidden
-    echo '{"text": ""}'
+    # Disconnected - show open lock icon
+    echo '{"text": "󰌾", "tooltip": "VPN Disconnected", "class": "disconnected"}'
 fi
