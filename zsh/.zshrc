@@ -72,7 +72,7 @@ fi
 source /home/stravinci/.config/broot/launcher/bash/br
 
 . "$HOME/.local/share/../bin/env"
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.local/share/../bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.local/share/../bin:$HOME/.local/share/omarchy/bin"
 
 # Development environment tmux session
 alias dev="$HOME/dotfiles/tmux/scripts/dev-session"
