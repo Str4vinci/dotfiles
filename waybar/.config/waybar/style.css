@@ -104,3 +104,37 @@ tooltip {
 #custom-vpn.disconnected {
   color: #4c566a;
 }
+
+#custom-pomo {
+  min-width: 12px;
+  margin: 0 7.5px;
+}
+
+#custom-pomo.running {
+  color: #bf616a;
+}
+
+#custom-pomo.paused {
+  opacity: 0.6;
+}
+
+#custom-pomo.short-break {
+  color: #a3be8c;
+}
+
+#custom-pomo.long-break {
+  color: #81a1c1;
+}
+
+#custom-alarm {
+  min-width: 12px;
+  margin: 0 7.5px;
+}
+
+#custom-alarm.counting {
+  color: #ebcb8b;
+}
+
+#custom-alarm.active {
+  color: #bf616a;
+}

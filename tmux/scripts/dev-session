@@ -39,7 +39,7 @@ echo "Creating development session '$SESSION_NAME'..."
 
 # Define project directories (relative to $HOME)
 PHD_DEV_DIR="$HOME/Work/phd/dev"
-WEBAPP_DIR="$HOME/Work/webapp_mockup"
+WEBAPP_DIR="$HOME/Work/webapp_simulator"
 
 # Track window index for proper numbering
 window_index=1
