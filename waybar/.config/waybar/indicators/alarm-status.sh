@@ -35,6 +35,7 @@ else
         mkdir -p "$ALARM_DIR"
         touch "$FIRED_FILE"
         notify-send -u critical "Alarm" "Time's up!" 2>/dev/null &
+        paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga &
     fi
     json_out "󰂟" "active" "ALARM!
 Click to dismiss"
