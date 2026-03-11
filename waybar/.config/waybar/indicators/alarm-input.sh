@@ -3,6 +3,7 @@
 ALARM_DIR="$HOME/.local/share/waybar-alarm"
 ALARM_TS_FILE="$ALARM_DIR/alarm_ts"
 FIRED_FILE="$ALARM_DIR/fired"
+WATCHER_PID_FILE="$ALARM_DIR/watcher.pid"
 
 echo "Set alarm"
 echo "---------"
@@ -75,8 +76,18 @@ else
 fi
 
 mkdir -p "$ALARM_DIR"
+
+# Kill any existing watcher
+if [ -f "$WATCHER_PID_FILE" ]; then
+    kill "$(cat "$WATCHER_PID_FILE")" 2>/dev/null
+    rm -f "$WATCHER_PID_FILE"
+fi
+
 echo "$alarm_ts" > "$ALARM_TS_FILE"
 rm -f "$FIRED_FILE"
+
+# Start watcher in background
+nohup ~/.config/waybar/indicators/alarm-watcher.sh >/dev/null 2>&1 &
 
 alarm_time=$(date -d "@$alarm_ts" "+%H:%M:%S")
 echo "Alarm set for $alarm_time"

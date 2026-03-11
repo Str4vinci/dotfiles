@@ -31,12 +31,6 @@ if [ "$remaining" -gt 0 ]; then
     json_out "󰂞 $t" "counting" "Alarm at $alarm_time (in $t)
 Click to cancel"
 else
-    if [ ! -f "$FIRED_FILE" ]; then
-        mkdir -p "$ALARM_DIR"
-        touch "$FIRED_FILE"
-        notify-send -u critical "Alarm" "Time's up!" 2>/dev/null &
-        paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga &
-    fi
     json_out "󰂟" "active" "ALARM!
 Click to dismiss"
 fi
