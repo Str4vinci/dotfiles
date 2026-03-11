@@ -138,3 +138,12 @@ tooltip {
 #custom-alarm.active {
   color: #bf616a;
 }
+
+#custom-nightlight {
+  min-width: 12px;
+  margin: 0 17px 0 7.5px;
+}
+
+#custom-nightlight.active {
+  color: #d08770;
+}

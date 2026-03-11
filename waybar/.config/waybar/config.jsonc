@@ -125,7 +125,7 @@
       "transition-duration": 600,
       "children-class": "tray-group-item"
     },
-    "modules": ["custom/expand-icon", "tray"]
+    "modules": ["custom/expand-icon", "custom/nightlight", "tray"]
   },
   "custom/expand-icon": {
     "format": "",
@@ -171,6 +171,13 @@
     "return-type": "json",
     "interval": 1,
     "on-click": "~/.config/waybar/indicators/alarm-set.sh"
+  },
+  "custom/nightlight": {
+    "exec": "~/.config/waybar/indicators/nightlight-status.sh",
+    "return-type": "json",
+    "interval": 5,
+    "on-click": "omarchy-toggle-nightlight",
+    "tooltip": true
   },
   "custom/vpn": {
     "exec": "/home/stravinci/.local/share/omarchy/default/waybar/indicators/vpn.sh",
