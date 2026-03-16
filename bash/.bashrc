@@ -116,11 +116,9 @@ if ! shopt -oq posix; then
   fi
 fi
 set -o vi
-export PATH=/home/leonardo/.duckdb/cli/latest:$HOME/.local/share/omarchy/bin:$PATH
+export PATH=$HOME/.duckdb/cli/latest:$HOME/.local/share/omarchy/bin:$PATH
 export EDITOR=vim
 
-source /home/leonardo/.config/broot/launcher/bash/br
-
-source /home/stravinci/.config/broot/launcher/bash/br
+source $HOME/.config/broot/launcher/bash/br
 
 . "$HOME/.local/share/../bin/env"
