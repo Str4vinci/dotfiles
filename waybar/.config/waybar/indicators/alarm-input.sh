@@ -7,7 +7,7 @@ WATCHER_PID_FILE="$ALARM_DIR/watcher.pid"
 
 echo "Set alarm"
 echo "---------"
-echo "Examples: 30s  5m  1h  1h30m  90m  1h30m45s  16:30  8:00"
+echo "Examples: 30s  5m  1h  1h30m  90m  1h30m45s  16:30  20:05:30  8:00"
 echo ""
 printf "Enter time: "
 read -r input
@@ -51,7 +51,7 @@ parse_absolute() {
     local str="$1"
     local ts
 
-    if [[ "$str" =~ ^([0-9]{1,2}):([0-9]{2})$ ]]; then
+    if [[ "$str" =~ ^([0-9]{1,2}):([0-9]{2})(:[0-9]{2})?$ ]]; then
         ts=$(date -d "today $str" +%s)
         local now
         now=$(date +%s)
@@ -70,7 +70,7 @@ if alarm_ts=$(parse_relative "$input") && [ -n "$alarm_ts" ]; then
 elif alarm_ts=$(parse_absolute "$input") && [ -n "$alarm_ts" ]; then
     :
 else
-    echo "Invalid format. Use: 30m, 1h, 1h30m, 16:30, etc."
+    echo "Invalid format. Use: 30m, 1h, 1h30m, 16:30, 20:05:30, etc."
     sleep 2
     exit 1
 fi
