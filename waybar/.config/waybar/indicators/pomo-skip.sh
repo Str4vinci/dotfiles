@@ -37,4 +37,5 @@ jq -n \
     '{phase:$phase,start_ts:$start_ts,duration:$duration,paused_remaining:null,pomodoros_done:$pomodoros_done}' \
     > "$tmp" && mv "$tmp" "$STATE_FILE"
 
+paplay --volume=19660 /usr/share/sounds/freedesktop/stereo/complete.oga 2>/dev/null &
 notify-send "Pomodoro" "Skipped to: ${next_phase//_/ }" 2>/dev/null &

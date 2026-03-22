@@ -83,8 +83,13 @@ else
 
     if [ "$remaining" -le 0 ]; then
         read -r next_phase next_dur new_done <<< "$(next_phase_info "$phase" "$pomodoros_done")"
-        write_state "$next_phase" "$(date +%s)" "$next_dur" "null" "$new_done"
-        notify-send "Pomodoro" "Phase complete! Starting: ${next_phase//_/ }" 2>/dev/null &
+        # Use mkdir as an atomic lock to prevent duplicate notifications from concurrent invocations
+        if mkdir "$STATE_DIR/.transition_lock" 2>/dev/null; then
+            write_state "$next_phase" "$(date +%s)" "$next_dur" "null" "$new_done"
+            paplay --volume=19660 /usr/share/sounds/freedesktop/stereo/complete.oga 2>/dev/null &
+            notify-send "Pomodoro" "Phase complete! Starting: ${next_phase//_/ }" 2>/dev/null &
+            rmdir "$STATE_DIR/.transition_lock" 2>/dev/null
+        fi
         phase="$next_phase"
         remaining=$next_dur
         pomodoros_done="$new_done"
