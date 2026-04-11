@@ -76,3 +76,7 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/u
 
 # Development environment tmux session
 alias dev="$HOME/dotfiles/tmux/scripts/dev-session"
+
+# Scaffold a new blog post on website_stravinci (guarded so other machines don't break)
+[ -x "$HOME/Work/website_stravinci/scripts/new-post.sh" ] && \
+  alias make_post="$HOME/Work/website_stravinci/scripts/new-post.sh"
