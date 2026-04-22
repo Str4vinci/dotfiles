@@ -1,0 +1,18 @@
+#!/bin/bash
+set -euo pipefail
+
+SOURCE_DIR="$HOME/dotfiles/backgrounds/.config/omarchy/backgrounds"
+TARGET_DIR="$HOME/.config/omarchy/backgrounds"
+
+mkdir -p "$TARGET_DIR"
+
+for theme_dir in "$SOURCE_DIR"/*; do
+  [[ -d $theme_dir ]] || continue
+
+  theme_name=$(basename "$theme_dir")
+  target_theme_dir="$TARGET_DIR/$theme_name"
+
+  mkdir -p "$target_theme_dir"
+  rm -f "$target_theme_dir"/*
+  cp -a "$theme_dir"/. "$target_theme_dir"/
+done
