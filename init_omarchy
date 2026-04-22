@@ -35,7 +35,7 @@ stow -t ~ zsh
 stow -t ~ hypr
 stow -t ~ waybar
 stow -t ~ omarchy
+stow -t ~ backgrounds
 
 # Set zsh as default shell
 chsh -s /usr/bin/zsh
-
