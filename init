@@ -13,6 +13,7 @@ stow -t ~ bash
 stow -t ~ vim
 stow -t ~ tmux
 stow -t ~ zsh
+stow -t ~ git
 
 chsh -s $(which zsh)
 

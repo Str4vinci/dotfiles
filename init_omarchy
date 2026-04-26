@@ -32,6 +32,7 @@ stow -t ~ bash
 stow -t ~ vim
 stow -t ~ tmux
 stow -t ~ zsh
+stow -t ~ git
 stow -t ~ hypr
 stow -t ~ waybar
 stow -t ~ omarchy
