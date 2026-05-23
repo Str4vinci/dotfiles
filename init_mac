@@ -6,26 +6,52 @@
 
 set -e
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 echo "==> Installing stow..."
 brew install stow
 
+echo ""
 echo "==> Stowing mac dotfiles..."
-# Remove any existing plain files that would conflict with stow
-[ -f ~/.zshrc ] && ! [ -L ~/.zshrc ] && mv ~/.zshrc ~/.zshrc.bak && echo "Backed up ~/.zshrc to ~/.zshrc.bak"
+# Back up any plain files/dirs that would conflict with stow
+[ -f ~/.zshrc ]          && ! [ -L ~/.zshrc ]          && mv ~/.zshrc ~/.zshrc.bak          && echo "Backed up ~/.zshrc"
 [ -d ~/.config/ghostty ] && ! [ -L ~/.config/ghostty ] && mv ~/.config/ghostty ~/.config/ghostty.bak && echo "Backed up ~/.config/ghostty"
+[ -d ~/.config/nvim ]    && ! [ -L ~/.config/nvim ]    && mv ~/.config/nvim ~/.config/nvim.bak    && echo "Backed up ~/.config/nvim"
 stow -t ~ mac
 
-echo "==> Installing tools..."
-brew install tree bat glow
+echo ""
+echo "==> Stowing tmux dotfiles..."
+[ -f ~/.tmux.conf ] && ! [ -L ~/.tmux.conf ] && mv ~/.tmux.conf ~/.tmux.conf.bak && echo "Backed up ~/.tmux.conf"
+stow -t ~ tmux
+# Also symlink to XDG path so the reload bind (C-a q) works
+mkdir -p ~/.config/tmux
+ln -sf ~/.tmux.conf ~/.config/tmux/tmux.conf
+echo "tmux config linked ✓"
 
-# broot (optional — provides 'br' directory navigator)
+echo ""
+echo "==> Installing tools..."
+brew install tree bat glow tmux neovim
+
+echo ""
+echo "==> Installing VSCode..."
+brew install --cask visual-studio-code
+
+echo ""
+# broot (optional)
 read -p "Install broot? (y/N) " -n 1 -r; echo
 [[ $REPLY =~ ^[Yy]$ ]] && brew install broot && broot --install
 
+echo ""
 # JetBrains Mono Nerd Font for Ghostty
 read -p "Install JetBrains Mono Nerd Font? (y/N) " -n 1 -r; echo
 [[ $REPLY =~ ^[Yy]$ ]] && brew install --cask font-jetbrains-mono-nerd-font
 
 echo ""
-echo "Done! Open a new terminal (Ghostty) to see the new shell."
-echo "If zsh isn't your default shell: chsh -s \$(which zsh)"
+echo "========================================"
+echo "Done!"
+echo ""
+echo "Next steps:"
+echo "  1. Open a new Ghostty window — prompt and shell are live"
+echo "  2. Run 'nvim' — LazyVim + Nord will install plugins on first launch"
+echo "  3. VSCode is in /Applications"
+echo "========================================"
