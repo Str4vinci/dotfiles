@@ -1,0 +1,31 @@
+# =============================================================================
+# Ghostty config — macOS
+# =============================================================================
+
+# Make Ghostty handle terminal:// links from other apps
+macos-use-as-default-terminal = true
+
+# Shell
+shell-integration = zsh
+
+# Theme
+theme = nord
+
+# Font — install via: brew install --cask font-jetbrains-mono-nerd-font
+# Falls back to system monospace if not found
+font-family = JetBrains Mono
+font-size = 13
+
+# Window
+window-padding-x = 10
+window-padding-y = 10
+macos-titlebar-style = hidden
+
+# Scrollback
+scrollback-limit = 10000
+
+# Copy on select
+copy-on-select = true
+
+# Don't confirm on quit if there's only one window
+confirm-close-surface = false

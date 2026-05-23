@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# =============================================================================
+# init_mac — Bootstrap dotfiles on a fresh macOS machine
+# Run from ~/dotfiles: bash init_mac
+# =============================================================================
+
+set -e
+
+echo "==> Installing stow..."
+brew install stow
+
+echo "==> Stowing mac dotfiles..."
+# Remove any existing plain files that would conflict with stow
+[ -f ~/.zshrc ] && ! [ -L ~/.zshrc ] && mv ~/.zshrc ~/.zshrc.bak && echo "Backed up ~/.zshrc to ~/.zshrc.bak"
+[ -d ~/.config/ghostty ] && ! [ -L ~/.config/ghostty ] && mv ~/.config/ghostty ~/.config/ghostty.bak && echo "Backed up ~/.config/ghostty"
+stow -t ~ mac
+
+echo "==> Installing tools..."
+brew install tree bat glow
+
+# broot (optional — provides 'br' directory navigator)
+read -p "Install broot? (y/N) " -n 1 -r; echo
+[[ $REPLY =~ ^[Yy]$ ]] && brew install broot && broot --install
+
+# JetBrains Mono Nerd Font for Ghostty
+read -p "Install JetBrains Mono Nerd Font? (y/N) " -n 1 -r; echo
+[[ $REPLY =~ ^[Yy]$ ]] && brew install --cask font-jetbrains-mono-nerd-font
+
+echo ""
+echo "Done! Open a new terminal (Ghostty) to see the new shell."
+echo "If zsh isn't your default shell: chsh -s \$(which zsh)"
