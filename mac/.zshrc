@@ -78,3 +78,5 @@ alias dev="$HOME/dotfiles/tmux/scripts/dev-session"
 # Blog post scaffold (guarded — only if the script exists)
 [ -x "$HOME/Work/website_stravinci/scripts/new-post.sh" ] && \
   alias make_post="$HOME/Work/website_stravinci/scripts/new-post.sh"
+
+source /Users/leonardorodrigues/.config/broot/launcher/bash/br

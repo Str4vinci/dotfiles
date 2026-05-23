@@ -2,9 +2,6 @@
 # Ghostty config — macOS
 # =============================================================================
 
-# Make Ghostty handle terminal:// links from other apps
-macos-use-as-default-terminal = true
-
 # Shell
 shell-integration = zsh
 
@@ -19,7 +16,18 @@ font-size = 13
 # Window
 window-padding-x = 10
 window-padding-y = 10
-macos-titlebar-style = hidden
+
+# Quick terminal (global hotkey — works even when Ghostty isn't focused)
+keybind = global:cmd+grave_accent=toggle_quick_terminal
+quick-terminal-position = top
+quick-terminal-animation-duration = 0.1
+
+# Mouse
+mouse-hide-while-typing = true
+
+# Cursor
+cursor-style = block
+cursor-style-blink = true
 
 # Scrollback
 scrollback-limit = 10000
