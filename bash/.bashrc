@@ -122,3 +122,7 @@ export EDITOR=vim
 source $HOME/.config/broot/launcher/bash/br
 
 . "$HOME/.local/share/../bin/env"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/stravinci/.local/bin:$PATH"
