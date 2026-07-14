@@ -1,0 +1,28 @@
+# Local environment files and common credential stores
+.env
+.env.*
+!.env.example
+!.env.*.example
+.netrc
+.npmrc
+.pypirc
+
+# Private keys and certificates with embedded private keys
+*.key
+*.pem
+id_dsa
+id_dsa.*
+id_ecdsa
+id_ecdsa.*
+id_ed25519
+id_ed25519.*
+id_rsa
+id_rsa.*
+!*.pub
+
+# Tool-specific authentication files
+credentials.json
+service-account.json
+**/.config/gh/hosts.yml
+**/.config/gcloud/
+**/.aws/credentials

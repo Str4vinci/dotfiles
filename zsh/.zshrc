@@ -69,18 +69,18 @@ if [ -f "$HOME/.config/broot/launcher/zsh/br" ]; then
     source "$HOME/.config/broot/launcher/zsh/br"
 fi
 
-source /home/stravinci/.config/broot/launcher/bash/br
-
-. "$HOME/.local/share/../bin/env"
+[[ -r "$HOME/.local/bin/env" ]] && source "$HOME/.local/bin/env"
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.local/share/../bin:$HOME/.local/share/omarchy/bin"
 
 # Development environment tmux session
-alias dev="$HOME/dotfiles/tmux/scripts/dev-session"
+alias dev="$HOME/code/dotfiles/tmux/scripts/dev-session"
 
 # Scaffold a new blog post on website_stravinci (guarded so other machines don't break)
 [ -x "$HOME/Work/website_stravinci/scripts/new-post.sh" ] && \
   alias make_post="$HOME/Work/website_stravinci/scripts/new-post.sh"
 
 
-# Added by Antigravity CLI installer
-export PATH="/home/stravinci/.local/bin:$PATH"
+# Local user-installed tools
+export PATH="$HOME/.local/bin:$PATH"
+
+source /home/leo/.config/broot/launcher/bash/br

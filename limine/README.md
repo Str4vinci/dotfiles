@@ -1,60 +1,41 @@
-# Limine Bootloader Configuration
+# Limine configuration
 
-## Overview
-This directory contains the Limine bootloader configuration file for your Omarchy/W10 dual-boot setup.
+This directory stores the reusable parts of the Limine setup without committing
+machine IDs, partition UUIDs, kernel hashes, snapshot paths, or EFI partition
+GUIDs.
 
-## File Structure
-```
-limine/boot/limine.conf
-```
+Do not copy or symlink a saved `limine.conf` over `/boot/limine.conf`. Linux boot
+entries are generated for the current installation by `limine-entry-tool`, and
+snapshot entries are maintained by `limine-snapper-sync`.
 
-## Usage During Reinstall
+## Apply the configuration
 
-### After System Installation
-1. **Copy the configuration file to system location:**
-   ```bash
-   sudo cp dotfiles/limine/boot/limine.conf /boot/limine.conf
-   ```
+After Limine and the Linux boot entries have been installed, run:
 
-2. **Verify the file permissions:**
-   ```bash
-   sudo chmod 644 /boot/limine.conf
-   ```
-
-### Optional: Using Stow
-If you want to use stow to manage this file (not enabled by default in init_omarchy):
 ```bash
-cd dotfiles
-stow limine
+./limine/configure
 ```
-This will create a symlink at `~/boot/limine.conf`. You would then need to:
+
+The script:
+
+1. Backs up the current config to `/boot/limine.conf.dotfiles-backup`.
+2. Applies the public-safe Tokyo Night values from `theme.conf` while preserving
+   generated Linux and snapshot entries.
+3. Reads the active Windows Boot Manager entry from UEFI firmware.
+4. Mounts its EFI partition read-only and verifies `bootmgfw.efi` exists.
+5. Uses `limine-entry-tool` to create the correct GUID-based Windows 10 entry.
+
+No disk GUID or other machine-specific identifier is stored in this repository.
+
+## Requirements
+
+- Limine
+- `limine-entry-tool`
+- `efibootmgr`
+- A working Windows Boot Manager firmware entry
+
+To inspect the resulting menu:
+
 ```bash
-sudo ln -sf ~/boot/limine.conf /boot/limine.conf
+sudo limine-entry-tool --tree
 ```
-
-### Manual Installation (Recommended)
-The simplest approach is to manually copy the file after system setup to avoid complications with system directory permissions.
-
-## Configuration Details
-
-### Boot Entries
-- **Omarchy (default)**: Linux with encrypted root filesystem
-- **Windows 10**: EFI chainloaded entry
-- **EFI fallback**: Default EFI loader entry
-- **Snapshots**: Automatic snapshot support with limine-snapper-sync
-
-### Customization
-- **Theme**: Tokyo Night palette colors
-- **Default entry**: Omarchy (entry 2)
-- **Timeout**: Disabled (immediate boot)
-- **Branding**: "Omarchy Bootloader"
-
-### Post-Reinstall Notes
-- The kernel paths and PARTUUIDs in the configuration will need to be updated after reinstall if you recreate partitions
-- Run `limine-entry-tool` and `limine-snapper-sync` after system setup to auto-generate proper entries
-- The visual customization (colors, branding) will work immediately
-
-## Dependencies
-- Limine bootloader
-- `limine-entry-tool` for kernel entry management
-- `limine-snapper-sync` for snapshot support (optional)

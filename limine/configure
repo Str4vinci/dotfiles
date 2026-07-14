@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+CONFIG=${LIMINE_CONFIG:-/boot/limine.conf}
+THEME="$SCRIPT_DIR/theme.conf"
+
+if ((EUID != 0)); then
+  exec sudo -- "$0" "$@"
+fi
+
+for command in awk efibootmgr limine-entry-tool mount readlink sed umount; do
+  if ! command -v "$command" >/dev/null; then
+    printf 'Missing required command: %s\n' "$command" >&2
+    exit 1
+  fi
+done
+
+if [[ ! -f $CONFIG ]]; then
+  printf 'Limine config not found: %s\n' "$CONFIG" >&2
+  exit 1
+fi
+
+backup="${CONFIG}.dotfiles-backup"
+temporary_config=$(mktemp)
+windows_mount=$(mktemp -d)
+windows_mounted=false
+
+cleanup() {
+  if $windows_mounted; then
+    umount "$windows_mount" || true
+  fi
+  rm -f -- "$temporary_config"
+  rmdir -- "$windows_mount" 2>/dev/null || true
+}
+trap cleanup EXIT
+
+windows_entry=$(efibootmgr -v | sed -n '/Windows Boot Manager/{p;q;}')
+windows_guid=$(sed -nE 's/.*HD\([^,]+,GPT,([[:xdigit:]-]+),.*/\1/p' <<<"$windows_entry")
+
+if [[ ! $windows_guid =~ ^[[:xdigit:]]{8}-[[:xdigit:]]{4}-[[:xdigit:]]{4}-[[:xdigit:]]{4}-[[:xdigit:]]{12}$ ]]; then
+  printf 'Could not determine the Windows EFI partition from UEFI firmware.\n' >&2
+  exit 1
+fi
+
+windows_device=$(readlink -f -- "/dev/disk/by-partuuid/${windows_guid,,}" 2>/dev/null || true)
+if [[ ! -b $windows_device ]]; then
+  printf 'Windows EFI partition is unavailable for PARTUUID %s.\n' "$windows_guid" >&2
+  exit 1
+fi
+
+mount -o ro -- "$windows_device" "$windows_mount"
+windows_mounted=true
+windows_loader="$windows_mount/EFI/Microsoft/Boot/bootmgfw.efi"
+
+if [[ ! -f $windows_loader ]]; then
+  printf 'Windows EFI loader not found on %s.\n' "$windows_device" >&2
+  exit 1
+fi
+
+cp -p -- "$CONFIG" "$backup"
+
+# Replace only global theme keys. Kernel, snapshot, machine ID, UUID, and hash
+# values remain owned by limine-entry-tool and limine-snapper-sync.
+awk '
+  NR == FNR {
+    if ($0 ~ /^[[:alnum:]_]+:/) {
+      key = $1
+      sub(/:$/, "", key)
+      theme[key] = $0
+      order[++theme_count] = key
+    }
+    next
+  }
+
+  !in_entries && /^\// {
+    for (i = 1; i <= theme_count; i++) {
+      key = order[i]
+      if (!seen[key]) print theme[key]
+    }
+    print ""
+    in_entries = 1
+  }
+
+  !in_entries && /^[[:alnum:]_]+:/ {
+    key = $1
+    sub(/:$/, "", key)
+    if (key in theme) {
+      print theme[key]
+      seen[key] = 1
+      next
+    }
+  }
+
+  { print }
+
+  END {
+    if (!in_entries) {
+      for (i = 1; i <= theme_count; i++) {
+        key = order[i]
+        if (!seen[key]) print theme[key]
+      }
+    }
+  }
+' "$THEME" "$CONFIG" >"$temporary_config"
+
+cp -- "$temporary_config" "$CONFIG"
+
+limine-entry-tool --add-efi \
+  "Windows 10" \
+  "$windows_loader" \
+  --comment "Windows Boot Manager" \
+  --priority 40 \
+  --overwrite
+
+printf 'Configured Limine theme and Windows entry. Backup: %s\n' "$backup"
+limine-entry-tool --tree

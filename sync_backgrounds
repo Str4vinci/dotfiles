@@ -1,7 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
-SOURCE_DIR="$HOME/dotfiles/backgrounds/.config/omarchy/backgrounds"
+DOTFILES_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+SOURCE_DIR="$DOTFILES_DIR/backgrounds/.config/omarchy/backgrounds"
 TARGET_DIR="$HOME/.config/omarchy/backgrounds"
 
 mkdir -p "$TARGET_DIR"
