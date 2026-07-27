@@ -84,3 +84,15 @@ alias dev="$HOME/code/dotfiles/tmux/scripts/dev-session"
 export PATH="$HOME/.local/bin:$PATH"
 
 source /home/leo/.config/broot/launcher/bash/br
+
+# pnpm
+export PNPM_HOME="/home/leo/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/leo/.local/bin:$PATH"

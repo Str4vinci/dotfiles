@@ -106,7 +106,8 @@
     "format-connected": "󰂱",
     "format-no-controller": "",
     "tooltip-format": "Devices connected: {num_connections}",
-    "on-click": "omarchy-launch-bluetooth"
+    "on-click": "omarchy-launch-bluetooth",
+    "on-click-right": "rfkill toggle bluetooth"
   },
   "pulseaudio": {
     "format": "{icon}",
@@ -196,10 +197,10 @@
   "custom/vpn": {
     "exec": "~/.config/waybar/indicators/vpn.sh",
     "return-type": "json",
-    "interval": 3,
+    "interval": 15,
     "format": "{}",
     "tooltip": true,
-    "on-click": "bash -c '~/.config/waybar/indicators/vpn-connect-anim.sh'",
-    "on-click-right": "omarchy-launch-floating-terminal-with-presentation protonvpn connect"
+    "on-click": "omarchy-launch-floating-terminal-with-presentation protonvpn connect",
+    "on-click-right": "protonvpn disconnect"
   }
 }

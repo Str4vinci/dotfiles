@@ -128,3 +128,7 @@ source $HOME/.config/broot/launcher/bash/br
 export PATH="/home/stravinci/.local/bin:$PATH"
 
 source /home/leo/.config/broot/launcher/bash/br
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/leo/.local/bin:$PATH"
