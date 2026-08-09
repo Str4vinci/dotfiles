@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scientific Manuscript Editing"
+  short_description: "Edit scientific prose, structure, and reporting"
+  default_prompt: "Use $scientific-manuscript-editing to edit or audit this scientific manuscript for accuracy, clarity, concision, cohesion, and reporting quality."

@@ -6,3 +6,5 @@
 !.gitignore
 !settings.json
 !statusline-command.sh
+!skills/
+!skills/**
