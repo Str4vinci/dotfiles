@@ -80,3 +80,7 @@ alias dev="$HOME/dotfiles/tmux/scripts/dev-session"
   alias make_post="$HOME/Work/website_stravinci/scripts/new-post.sh"
 
 source /Users/leonardorodrigues/.config/broot/launcher/bash/br
+
+
+# Added by Antigravity CLI installer
+export PATH="/Users/leonardorodrigues/.local/bin:$PATH"

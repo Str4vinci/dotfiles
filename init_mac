@@ -29,6 +29,12 @@ ln -sf ~/.tmux.conf ~/.config/tmux/tmux.conf
 echo "tmux config linked ✓"
 
 echo ""
+echo "==> Linking shared agent skills..."
+mkdir -p ~/.claude/skills ~/.codex/skills
+stow -t ~ agent-skills
+echo "agent skills linked ✓"
+
+echo ""
 echo "==> Installing tools..."
 brew install tree bat glow tmux neovim
 

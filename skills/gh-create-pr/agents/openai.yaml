@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create GitHub PR"
+  short_description: "Write clear, evidence-based GitHub PRs"
+  default_prompt: "Use $gh-create-pr to draft a clear GitHub pull request from the current branch."
