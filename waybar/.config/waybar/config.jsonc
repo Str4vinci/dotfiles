@@ -205,9 +205,10 @@
     "exec": "~/.config/waybar/indicators/vpn.sh",
     "return-type": "json",
     "interval": 15,
+    "signal": 11,
     "format": "{}",
     "tooltip": true,
-    "on-click": "omarchy-launch-floating-terminal-with-presentation protonvpn connect",
-    "on-click-right": "protonvpn disconnect"
+    "on-click": "~/.config/waybar/indicators/vpn-toggle.sh toggle",
+    "on-click-right": "~/.config/waybar/indicators/vpn-toggle.sh down"
   }
 }
