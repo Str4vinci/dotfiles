@@ -96,3 +96,8 @@ esac
 
 # Added by Antigravity CLI installer
 export PATH="/home/leo/.local/bin:$PATH"
+
+# mise — per-project runtime versions (node, python). Comes last so its shims
+# take precedence over the system node in /usr/bin that the PATH exports above
+# put in place. Guarded so a machine without mise still gets a working shell.
+command -v mise >/dev/null 2>&1 && eval "$(mise activate zsh)"
