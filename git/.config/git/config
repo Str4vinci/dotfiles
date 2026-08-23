@@ -29,11 +29,5 @@
 [user]
 	name = Stravinci
 	email = strav@stravinci.pt
-[credential "https://github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
-[url "https://github.com/"]
-	insteadOf = git@github.com:
+[url "git@github.com:"]
+	insteadOf = https://github.com/
