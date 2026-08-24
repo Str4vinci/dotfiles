@@ -5,29 +5,6 @@
 
 SESSION_NAME="dev"
 
-# Function to create a window if directory exists
-create_window_if_exists() {
-    local session="$1"
-    local window_name="$2"
-    local directory="$3"
-    local window_index="$4"
-    
-    if [ -d "$directory" ]; then
-        if [ "$window_index" -eq 1 ]; then
-            # Create first window with session
-            tmux new-session -d -s "$session_name" -c "$directory" -n "$window_name"
-        else
-            # Create additional windows
-            tmux new-window -t "$session_name:$window_index" -c "$directory" -n "$window_name"
-        fi
-        echo "Created window: $window_name -> $directory"
-        return 0
-    else
-        echo "Directory not found, skipping window: $directory"
-        return 1
-    fi
-}
-
 # Check if session already exists
 if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
     echo "Session '$SESSION_NAME' already exists. Attaching..."

@@ -5,7 +5,7 @@
   "spacing": 0,
   "height": 26,
   "modules-left": ["custom/omarchy", "hyprland/workspaces"],
-  "modules-center": ["clock", "custom/weather", "custom/update", "battery", "custom/voxtype", "custom/screenrecording-indicator", "custom/idle-indicator", "custom/notification-silencing-indicator", "custom/pomo", "custom/alarm"],
+  "modules-center": ["clock", "custom/weather", "custom/update", "battery", "custom/voxtype", "custom/screenrecording-indicator", "custom/idle-indicator", "custom/notification-silencing-indicator"],
   "modules-right": [
     "group/tray-expander",
     "bluetooth",
@@ -135,7 +135,7 @@
       "transition-duration": 600,
       "children-class": "tray-group-item"
     },
-    "modules": ["custom/expand-icon", "custom/nightlight", "tray"]
+    "modules": ["custom/expand-icon", "tray"]
   },
   "custom/expand-icon": {
     "format": "",
@@ -179,27 +179,6 @@
   "tray": {
     "icon-size": 12,
     "spacing": 17
-  },
-  "custom/pomo": {
-    "exec": "~/.config/waybar/indicators/pomo-status.sh",
-    "return-type": "json",
-    "interval": 1,
-    "on-click": "~/.config/waybar/indicators/pomo-toggle.sh",
-    "on-click-right": "~/.config/waybar/indicators/pomo-reset.sh",
-    "on-click-middle": "~/.config/waybar/indicators/pomo-skip.sh"
-  },
-  "custom/alarm": {
-    "exec": "~/.config/waybar/indicators/alarm-status.sh",
-    "return-type": "json",
-    "interval": 1,
-    "on-click": "~/.config/waybar/indicators/alarm-set.sh"
-  },
-  "custom/nightlight": {
-    "exec": "~/.config/waybar/indicators/nightlight-status.sh",
-    "return-type": "json",
-    "interval": 5,
-    "on-click": "omarchy-toggle-nightlight",
-    "tooltip": true
   },
   "custom/vpn": {
     "exec": "~/.config/waybar/indicators/vpn.sh",

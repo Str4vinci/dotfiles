@@ -73,14 +73,11 @@ PROMPT='%F{magenta}${vcs_info_msg_0_}%f%F{cyan}leo%f@%F{blue}neo%f %F{yellow}%~%
 [ -f "$HOME/.config/broot/launcher/zsh/br" ] && source "$HOME/.config/broot/launcher/zsh/br"
 
 # dev tmux session
-alias dev="$HOME/dotfiles/tmux/scripts/dev-session"
+alias dev="$HOME/.local/bin/dev-session"
 
 # Blog post scaffold (guarded — only if the script exists)
 [ -x "$HOME/Work/website_stravinci/scripts/new-post.sh" ] && \
   alias make_post="$HOME/Work/website_stravinci/scripts/new-post.sh"
 
-source /Users/leonardorodrigues/.config/broot/launcher/bash/br
-
-
 # Added by Antigravity CLI installer
-export PATH="/Users/leonardorodrigues/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"

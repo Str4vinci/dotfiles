@@ -9,10 +9,6 @@ set shiftwidth=4  " Number of spaces used for autoindent
 set softtabstop=4 " Number of spaces a <Tab> feels like
 set smarttab      " Makes <Tab> smarter when used at the start of a line
 set showmatch     " Show matching brackets
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
 " Maps <C-h/j/k/l> to switch vim splits in the given direction. If there are no more windows in that direction, forwards the operation to tmux.
 " Additionally, <C-\> toggles between last active vim splits/tmux panes.
 

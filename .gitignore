@@ -26,3 +26,21 @@ service-account.json
 **/.config/gh/hosts.yml
 **/.config/gcloud/
 **/.aws/credentials
+
+# OS artifacts
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+
+# Editor swap / backup files
+*.swp
+*.swo
+*~
+*.bak
+
+# Shell history
+.zsh_history
+.bash_history
+.lesshst

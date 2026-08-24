@@ -119,16 +119,10 @@ set -o vi
 export PATH=$HOME/.duckdb/cli/latest:$HOME/.local/share/omarchy/bin:$PATH
 export EDITOR=vim
 
-source $HOME/.config/broot/launcher/bash/br
+[ -f "$HOME/.config/broot/launcher/bash/br" ] && source "$HOME/.config/broot/launcher/bash/br"
 
-. "$HOME/.local/share/../bin/env"
-
-
-# Added by Antigravity CLI installer
-export PATH="/home/stravinci/.local/bin:$PATH"
-
-source /home/leo/.config/broot/launcher/bash/br
+[ -r "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 
 
 # Added by Antigravity CLI installer
-export PATH="/home/leo/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
