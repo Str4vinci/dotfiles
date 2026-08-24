@@ -21,12 +21,15 @@ stow -t ~ mac
 
 echo ""
 echo "==> Stowing tmux dotfiles..."
-[ -f ~/.tmux.conf ] && ! [ -L ~/.tmux.conf ] && mv ~/.tmux.conf ~/.tmux.conf.bak && echo "Backed up ~/.tmux.conf"
-stow -t ~ tmux
-# Also symlink to XDG path so the reload bind (C-a q) works
 mkdir -p ~/.config/tmux
-ln -sf ~/.tmux.conf ~/.config/tmux/tmux.conf
+[ -f ~/.config/tmux/tmux.conf ] && ! [ -L ~/.config/tmux/tmux.conf ] && mv ~/.config/tmux/tmux.conf ~/.config/tmux/tmux.conf.bak && echo "Backed up ~/.config/tmux/tmux.conf"
+stow -t ~ tmux
 echo "tmux config linked ✓"
+
+echo ""
+echo "==> Stowing bin and git dotfiles..."
+stow -t ~ bin
+stow -t ~ git
 
 echo ""
 echo "==> Linking shared agent skills..."

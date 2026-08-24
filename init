@@ -14,6 +14,7 @@ stow -t ~ vim
 stow -t ~ tmux
 stow -t ~ zsh
 stow -t ~ git
+stow -t ~ bin
 mkdir -p ~/.claude/skills ~/.codex/skills
 stow -t ~ agent-skills
 
