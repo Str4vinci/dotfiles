@@ -90,3 +90,5 @@ export PATH="$HOME/.local/bin:$PATH"
 # take precedence over the system node in /usr/bin that the PATH exports above
 # put in place. Guarded so a machine without mise still gets a working shell.
 command -v mise >/dev/null 2>&1 && eval "$(mise activate zsh)"
+
+[ -f "$HOME/.config/broot/launcher/bash/br" ] && source "$HOME/.config/broot/launcher/bash/br"
