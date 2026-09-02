@@ -1,0 +1,4 @@
+interface:
+  display_name: "Article Quotes"
+  short_description: "Extract article quotes and draft LinkedIn posts for FELPT"
+  default_prompt: "Use $article-quotes to extract punchy quotes and generate a LinkedIn post draft."
