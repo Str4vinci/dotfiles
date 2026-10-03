@@ -121,6 +121,16 @@ Use this as a menu, not a mandatory form:
 
 For a small PR, the opening plus `What changed` and `Validation` can be enough. For a complex scientific or numerical change, retain the mechanism, measured impact, comparator, scope, and limitations.
 
+## Visual evidence
+
+Include a visual when it helps reviewers understand the change or assess its results. Keep it proportional to the PR; do not add charts just to decorate the description.
+
+- When a PR adds or changes plotting, consider showing representative output. For a visual correction, use comparable before-and-after plots when available.
+- Use tables for exact values, numerical deltas, and discrete comparisons. Use plots for trends, distributions, time-dependent behaviour, or relationships that a table would obscure. Combine them when each adds useful information.
+- Prefer existing plots and measured data. Generate additional figures from inspected data with the project's plotting code or standard plotting tools, within the task's authorised scope.
+- Label axes, units, series, and the comparator clearly. Use comparable inputs and scales for before-and-after figures. Add a short caption stating what the figure demonstrates and identifying the scenario or data source; retain relevant limitations in the text.
+- Embed figures near the claim they support using Markdown images with descriptive alt text and a GitHub-accessible URL. Prefer existing repository assets or attachments; commit generated images only when requested or required by repository guidance. If embedding is unavailable, link an accessible artifact or report the missing hosting step instead of inserting a local path or placeholder.
+
 ## Evidence boundaries
 
 - Say "can" only when the change makes something possible; say "does" only when observed or guaranteed.

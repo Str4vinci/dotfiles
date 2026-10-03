@@ -62,6 +62,8 @@ Then add only useful sections, such as:
 
 Omit empty headings. Do not repeat the opening under `Why`. Use bullets for parallel facts and prose for reasoning. Use a table only when several exact comparisons are easier to scan that way.
 
+For plotting changes, consider embedding representative plots to showcase the output. For measured results, use tables for exact values and changes, and plots when trends or behaviour are easier to understand visually. Follow the visual-evidence guidance in [references/pr-writing.md](references/pr-writing.md); visuals are optional.
+
 Write an outcome-focused title in sentence case. Do not include the PR number. Prefer what becomes correct, consistent, supported, or possible over internal operations such as "refactor", "consolidate", or "update" when a clearer outcome is known.
 
 ## Show the impact
