@@ -81,3 +81,5 @@ alias dev="$HOME/.local/bin/dev-session"
 
 # Added by Antigravity CLI installer
 export PATH="$HOME/.local/bin:$PATH"
+
+source /Users/leonardorodrigues/.config/broot/launcher/bash/br
