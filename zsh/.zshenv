@@ -8,3 +8,7 @@
 if [ -z "$SSH_AUTH_SOCK" ] && [ -n "$XDG_RUNTIME_DIR" ]; then
   export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 fi
+
+# One BLAS/OpenMP thread per process (BREOS Monte Carlo: 10 workers x 1 thread; breos #382)
+export OMP_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
