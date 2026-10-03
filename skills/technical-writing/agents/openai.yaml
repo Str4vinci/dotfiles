@@ -2,3 +2,6 @@ interface:
   display_name: "Technical Writing"
   short_description: "Diataxis structure and plain-sentence rules for docs"
   default_prompt: "Use $technical-writing to review this document: pick its Diataxis mode, then tighten the sentences."
+
+policy:
+  allow_implicit_invocation: false
