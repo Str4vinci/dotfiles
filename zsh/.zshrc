@@ -10,6 +10,10 @@ HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
 
+# Homebrew (broot, bat, glow, ...). Before compinit so brew completions load, and
+# before the system PATH export below so system binaries keep precedence.
+[ -x /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+
 # Use modern completion system
 autoload -Uz compinit
 compinit
