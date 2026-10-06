@@ -15,21 +15,34 @@ Use the distilled rules below during normal PR work. Consult the sources only wh
 
 ## Opening contract
 
-Make the opening answer these questions in order:
+Draft the opening with a **10-second executive lead** followed by plain context.
 
+### 1. The 10-Second Executive Lead (Sentence 1)
+Start the very first sentence with a clear, outcome-focused statement of what this PR accomplishes:
+- **Max 25 words.**
+- **Active voice:** `This PR [verb] [outcome]...` or `This change [enables/fixes]...`.
+- **Passes the "coffee test":** A colleague or non-specialist reading only this sentence immediately understands what was improved.
+- **No code symbols, config keys, formulas, or bare issue/PR numbers (`#NNN`)** in this first sentence. Explain the intent, not the internal mechanism.
+
+### 2. Context, Problem, and Mechanism (Sentences 2–4)
+Follow the lead with two to three short sentences answering:
 1. What did the software do before, or what could it not do?
-2. What problem did that cause?
-3. What does this PR change, and why does that matter?
+2. What problem, error, or slowdown did that cause?
+3. How does this PR resolve it?
 
-Lead with the product, behaviour, or developer task. Introduce internal functions and formulas after the reader understands their purpose.
+Prefer an opening such as:
 
-Prefer a direct opening such as:
+> **This PR keeps battery efficiency calculations consistent over time by using one shared formula as battery resistance increases.**
+>
+> As a battery ages, its internal resistance increases, reducing charge and discharge efficiency. BREOS accounted for this in two places—initial setup and daily degradation—but those paths used different calculations, producing inconsistent efficiencies for the same battery.
 
-> Battery resistance increases as the battery ages, which makes charging and discharging less efficient. BREOS accounted for this in two places, and those paths used different calculations.
+Avoid an opening that dumps configuration keys or internal functions right away:
 
-Avoid an opening that makes the reader reverse-engineer the problem:
+> Under `fixed_target`, `overlap_policy = "hold_target"` lets a period be both a charge and discharge period...
 
-> Route initial dispatch and daily resistance updates through one efficiency mapping.
+Avoid an opening that references recent PR numbers without context:
+
+> `#386` gave the planner a wear weight and left `tools/oracles/` untouched...
 
 ## Plain technical English
 
@@ -87,7 +100,7 @@ Use this as a menu, not a mandatory form:
 
 ## Impact
 
-<Observed user, API, compatibility, performance, numerical, or migration effect.>
+<Measured before-and-after comparison on the same inputs: a table of headline metrics per scenario, including unchanged ones, then two or three sentences on size, direction and whether it matters. Also API, compatibility or migration effects.>
 
 ## Known limitations
 
@@ -107,6 +120,16 @@ Use this as a menu, not a mandatory form:
 ```
 
 For a small PR, the opening plus `What changed` and `Validation` can be enough. For a complex scientific or numerical change, retain the mechanism, measured impact, comparator, scope, and limitations.
+
+## Visual evidence
+
+Include a visual when it helps reviewers understand the change or assess its results. Keep it proportional to the PR; do not add charts just to decorate the description.
+
+- When a PR adds or changes plotting, consider showing representative output. For a visual correction, use comparable before-and-after plots when available.
+- Use tables for exact values, numerical deltas, and discrete comparisons. Use plots for trends, distributions, time-dependent behaviour, or relationships that a table would obscure. Combine them when each adds useful information.
+- Prefer existing plots and measured data. Generate additional figures from inspected data with the project's plotting code or standard plotting tools, within the task's authorised scope.
+- Label axes, units, series, and the comparator clearly. Use comparable inputs and scales for before-and-after figures. Add a short caption stating what the figure demonstrates and identifying the scenario or data source; retain relevant limitations in the text.
+- Embed figures near the claim they support using Markdown images with descriptive alt text and a GitHub-accessible URL. Prefer existing repository assets or attachments; commit generated images only when requested or required by repository guidance. If embedding is unavailable, link an accessible artifact or report the missing hosting step instead of inserting a local path or placeholder.
 
 ## Evidence boundaries
 

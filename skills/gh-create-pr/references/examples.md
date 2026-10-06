@@ -14,9 +14,11 @@ This version is technically accurate, but it starts with code operations. The re
 
 **Title:** Keep battery efficiency updates consistent as resistance grows
 
+> **This PR keeps battery efficiency calculations consistent over time by using one shared formula as battery resistance increases.**
+>
 > Battery resistance increases as the battery ages, which makes charging and discharging less efficient. BREOS accounted for this in two places: when dispatch was first configured and during the daily ageing update. Those paths used different calculations, so they could produce different efficiencies for the same battery.
 >
-> This PR makes both paths use one calculation. If resistance has not increased, BREOS keeps the configured charge and discharge efficiencies unchanged. When resistance increases, both efficiencies decrease by the same factor. This keeps the relationship configured by the user: if charging was less efficient than discharging before ageing, it remains so afterwards.
+> This change makes both paths use one calculation. If resistance has not increased, BREOS keeps the configured charge and discharge efficiencies unchanged. When resistance increases, both efficiencies decrease by the same factor. This keeps the relationship configured by the user: if charging was less efficient than discharging before ageing, it remains so afterwards.
 >
 > The change also removes the helper's minimum efficiency limit. Unusual inputs now have explicit behaviour covered by tests instead of being silently adjusted.
 
@@ -55,6 +57,30 @@ For a PR that both adds options and fixes existing behaviour, use this order:
 8. End with reproducible validation and stack relationships.
 
 Do not compress this kind of PR into three summary bullets. Do not begin with a catalogue of model names before explaining why the models or correction matter.
+
+## Measured impact
+
+Explaining why a correction is needed does not show what it does. Run base and head on the same scenarios and show the headline numbers. For a battery-aging fix measured on the committed App golden scenarios:
+
+```markdown
+## Impact
+
+Compared with `develop` (79bffcf) on the six App golden scenarios:
+
+| Scenario | Final SOH | NPV | Grid import |
+| --- | --- | --- | --- |
+| Hourly, battery, no replacement | 88.34% → 88.34% | −5007.45 → −5007.32 € | −0.02% |
+| Hourly, 2 replacements | 99.14% → 99.08% | −9890.81 → −9890.89 € | −0.02% |
+| 15-min, 2 replacements | 99.08% → 99.10% | −9905.05 → −9904.71 € | −0.03% |
+| BLAST; PV-only | unchanged | unchanged | unchanged |
+
+Final SOH moves by at most 0.06 percentage points and NPV by at most €0.34. The
+change goes both ways because it removes a counting error rather than adding a
+bias: cycles crossing midnight were split or missed. Replacement counts, LCOE
+and payback do not change.
+```
+
+The unchanged rows matter: they show the reader where the change stops.
 
 ## Evidence-safe fallback
 
