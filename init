@@ -1,16 +1,25 @@
 #!/usr/bin/env bash
 
-# Install brew
+# Install curl
+sudo apt update
+sudo apt install -y curl
+
+# Install Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-/bin/bash -c "$(curl -LsSf https://astral.sh/uv/install.sh | sh)
+# Install uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
-sudo apt update && sudo apt install -y stow tmux zsh
+sudo apt install -y stow tmux zsh
 rm -f ~/.bashrc ~/.vimrc ~/.bash_aliases
-stow bash
-stow vim
-stow tmux
-stow zsh
+stow -t ~ bash
+stow -t ~ vim
+stow -t ~ tmux
+stow -t ~ zsh
+stow -t ~ git
+stow -t ~ bin
+mkdir -p ~/.claude/skills ~/.codex/skills
+stow -t ~ agent-skills
 
 chsh -s $(which zsh)
 

@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DOTFILES_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+BACKUP_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/backups/$(date +%Y%m%d-%H%M%S)"
+
+stow_package() {
+  local package=$1 source relative target backup
+
+  while IFS= read -r -d '' source; do
+    relative=${source#"$DOTFILES_DIR/$package/"}
+    target="$HOME/$relative"
+
+    if [[ -e $target || -L $target ]]; then
+      if [[ -L $target && $(readlink -f -- "$target") == $(readlink -f -- "$source") ]]; then
+        continue
+      fi
+
+      backup="$BACKUP_DIR/$relative"
+      mkdir -p -- "$(dirname -- "$backup")"
+      mv -- "$target" "$backup"
+    fi
+  done < <(find "$DOTFILES_DIR/$package" \( -type f -o -type l \) -print0)
+
+  stow --restow -d "$DOTFILES_DIR" -t "$HOME" "$package"
+}
+
+# Update system
+sudo pacman -Syu --noconfirm
+
+# Install base tools
+sudo pacman -S --noconfirm \
+  curl \
+  stow \
+  tmux \
+  zsh \
+  tree \
+  broot \
+  bat \
+  glow
+
+yay -S --noconfirm duckdb-bin
+
+# Install gazelle-tui for eduroam/enterprise WiFi support
+yay -S --noconfirm gazelle-tui
+
+# Stow dotfiles (run from dotfiles repo root)
+mkdir -p "$HOME/.claude/skills" "$HOME/.codex/skills"
+for package in bash vim tmux zsh git bin hypr waybar omarchy agent-skills; do
+  stow_package "$package"
+done
+
+# Hook custom bindings into stock bindings.conf (overrides file lives in dotfiles/hypr).
+# Refresh of bindings.conf will drop this line — re-run this block after omarchy update if needed.
+if ! grep -qF "source = ~/.config/hypr/bindings-overrides.conf" ~/.config/hypr/bindings.conf; then
+    echo "" >> ~/.config/hypr/bindings.conf
+    echo "# Custom overrides (kept in dotfiles/hypr/.config/hypr/bindings-overrides.conf)" >> ~/.config/hypr/bindings.conf
+    echo "source = ~/.config/hypr/bindings-overrides.conf" >> ~/.config/hypr/bindings.conf
+fi
+
+"$DOTFILES_DIR/sync_backgrounds"
+
+# Set zsh as default shell
+chsh -s /usr/bin/zsh

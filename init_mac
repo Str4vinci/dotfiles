@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# =============================================================================
+# init_mac — Bootstrap dotfiles on a fresh macOS machine
+# Run from ~/dotfiles: bash init_mac
+# =============================================================================
+
+set -e
+
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+echo "==> Installing stow..."
+brew install stow
+
+echo ""
+echo "==> Stowing mac dotfiles..."
+# Back up any plain files/dirs that would conflict with stow
+[ -f ~/.zshrc ]          && ! [ -L ~/.zshrc ]          && mv ~/.zshrc ~/.zshrc.bak          && echo "Backed up ~/.zshrc"
+[ -d ~/.config/ghostty ] && ! [ -L ~/.config/ghostty ] && mv ~/.config/ghostty ~/.config/ghostty.bak && echo "Backed up ~/.config/ghostty"
+[ -d ~/.config/nvim ]    && ! [ -L ~/.config/nvim ]    && mv ~/.config/nvim ~/.config/nvim.bak    && echo "Backed up ~/.config/nvim"
+stow -t ~ mac
+
+echo ""
+echo "==> Stowing tmux dotfiles..."
+mkdir -p ~/.config/tmux
+[ -f ~/.config/tmux/tmux.conf ] && ! [ -L ~/.config/tmux/tmux.conf ] && mv ~/.config/tmux/tmux.conf ~/.config/tmux/tmux.conf.bak && echo "Backed up ~/.config/tmux/tmux.conf"
+stow -t ~ tmux
+echo "tmux config linked ✓"
+
+echo ""
+echo "==> Stowing bin and git dotfiles..."
+stow -t ~ bin
+stow -t ~ git
+
+echo ""
+echo "==> Linking shared agent skills..."
+mkdir -p ~/.claude/skills ~/.codex/skills
+stow -t ~ agent-skills
+echo "agent skills linked ✓"
+
+echo ""
+echo "==> Installing tools..."
+brew install tree bat glow tmux neovim
+
+echo ""
+echo "==> Installing VSCode..."
+brew install --cask visual-studio-code
+
+echo ""
+# broot (optional)
+read -p "Install broot? (y/N) " -n 1 -r; echo
+[[ $REPLY =~ ^[Yy]$ ]] && brew install broot && broot --install
+
+echo ""
+# JetBrains Mono Nerd Font for Ghostty
+read -p "Install JetBrains Mono Nerd Font? (y/N) " -n 1 -r; echo
+[[ $REPLY =~ ^[Yy]$ ]] && brew install --cask font-jetbrains-mono-nerd-font
+
+echo ""
+echo "========================================"
+echo "Done!"
+echo ""
+echo "Next steps:"
+echo "  1. Open a new Ghostty window — prompt and shell are live"
+echo "  2. Run 'nvim' — LazyVim + Nord will install plugins on first launch"
+echo "  3. VSCode is in /Applications"
+echo "========================================"

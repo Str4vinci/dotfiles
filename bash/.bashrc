@@ -116,7 +116,13 @@ if ! shopt -oq posix; then
   fi
 fi
 set -o vi
-export PATH=/home/leonardo/.duckdb/cli/latest:$PATH
+export PATH=$HOME/.duckdb/cli/latest:$HOME/.local/share/omarchy/bin:$PATH
 export EDITOR=vim
 
-source /home/leonardo/.config/broot/launcher/bash/br
+[ -f "$HOME/.config/broot/launcher/bash/br" ] && source "$HOME/.config/broot/launcher/bash/br"
+
+[ -r "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
+
+
+# Added by Antigravity CLI installer
+export PATH="$HOME/.local/bin:$PATH"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mockup"
+  short_description: "Generate 3-5 mockups of frontend pages, styles, or structures in a separate file"
+  default_prompt: "Use $mockup to generate 3-5 distinct design mockups in a separate file."

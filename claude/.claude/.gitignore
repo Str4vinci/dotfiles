@@ -1,0 +1,10 @@
+# Defense-in-depth for a PUBLIC repo.
+# ~/.claude holds secrets: OAuth credentials (.credentials.json), prompt
+# history (history.jsonl), chat logs (projects/), caches, todos.
+# Ignore EVERYTHING here, then whitelist only the files we intend to publish.
+*
+!.gitignore
+!settings.json
+!statusline-command.sh
+!skills/
+!skills/**
