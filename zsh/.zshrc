@@ -96,3 +96,6 @@ export PATH="$HOME/.local/bin:$PATH"
 command -v mise >/dev/null 2>&1 && eval "$(mise activate zsh)"
 
 [ -f "$HOME/.config/broot/launcher/bash/br" ] && source "$HOME/.config/broot/launcher/bash/br"
+
+# Windows OpenSSH launches WSL in the Windows profile dir; start in Linux home instead
+[[ $PWD == /mnt/c/Users/Leonardo ]] && cd ~
