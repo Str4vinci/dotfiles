@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hill-climb"
+  short_description: "Improve a UI, report, chart, or prompt by change → look → critique → keep or revert"
+  default_prompt: "Use $hill-climb to iterate on this with screenshots, one change per round."
