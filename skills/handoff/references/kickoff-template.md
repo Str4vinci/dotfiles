@@ -1,6 +1,9 @@
-# Template
+# Kickoff prompt template
 
-Section order, with the wording that has worked. Drop any section with no content.
+Section order for the paste-ready kickoff prompt, with the wording that has worked.
+Drop any section with no content. For a simple "continue where I stopped" handoff,
+most sections collapse to a line or disappear. Use the full order when the next
+session starts a new, well-defined task.
 
 ---
 
@@ -16,9 +19,11 @@ Name sibling repos and pinned dependency versions when the work spans them.
 
 Numbered, each with the reason it matters. Not a bare file list.
 
-    1. docs/literature-scan-2026-08.md §2 — the closed-form equations this implements.
-    2. currentstatus.md — the authoritative ledger of what is default.
-    3. nextwork.md — where the previous increment stopped.
+    1. /tmp/handoff-pv-options-2026-08-09.md — the handoff: decisions, dead ends, traps.
+    2. docs/literature-scan-2026-08.md §2 — the closed-form equations this implements.
+    3. currentstatus.md — the authoritative ledger of what is default.
+
+The handoff document is always item 1.
 
 Name the anchor file: "Read `breos/pv/model_options.py` first; it is the anchor
 for this task."
@@ -30,7 +35,7 @@ One paragraph. End it with the redo fence.
     Commit 24e9c80 extracted the PV model options into `breos/pv/`. A follow-up
     restored the rationale comments. That work is done, do not redo it.
 
-If a handoff document exists, point at it instead and keep this to two lines.
+Point at the handoff document instead of restating it, and keep this to two lines.
 
 ## 4. The task
 

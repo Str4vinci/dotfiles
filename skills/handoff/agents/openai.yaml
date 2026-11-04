@@ -1,0 +1,6 @@
+interface:
+  display_name: "Handoff"
+  short_description: "Before /clear or a new thread: write a handoff doc and a paste-ready kickoff prompt"
+  default_prompt: "Use $handoff to write the handoff document and kickoff prompt for the next session."
+policy:
+  allow_implicit_invocation: false
