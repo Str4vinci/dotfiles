@@ -46,17 +46,9 @@ yay -S --noconfirm gazelle-tui
 
 # Stow dotfiles (run from dotfiles repo root)
 mkdir -p "$HOME/.claude/skills" "$HOME/.codex/skills"
-for package in bash vim tmux zsh git bin hypr waybar omarchy agent-skills; do
+for package in bash vim tmux zsh git bin hypr omarchy agent-skills; do
   stow_package "$package"
 done
-
-# Hook custom bindings into stock bindings.conf (overrides file lives in dotfiles/hypr).
-# Refresh of bindings.conf will drop this line — re-run this block after omarchy update if needed.
-if ! grep -qF "source = ~/.config/hypr/bindings-overrides.conf" ~/.config/hypr/bindings.conf; then
-    echo "" >> ~/.config/hypr/bindings.conf
-    echo "# Custom overrides (kept in dotfiles/hypr/.config/hypr/bindings-overrides.conf)" >> ~/.config/hypr/bindings.conf
-    echo "source = ~/.config/hypr/bindings-overrides.conf" >> ~/.config/hypr/bindings.conf
-fi
 
 "$DOTFILES_DIR/sync_backgrounds"
 

@@ -68,7 +68,6 @@ if [ -f "$HOME/.config/broot/launcher/zsh/br" ]; then
 fi
 
 [[ -r "$HOME/.local/bin/env" ]] && source "$HOME/.local/bin/env"
-export PATH="$HOME/.local/share/omarchy/bin:$PATH"
 
 # Development environment tmux session
 alias dev="$HOME/.local/bin/dev-session"

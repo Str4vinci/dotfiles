@@ -118,7 +118,7 @@ fi
 set -o vi
 # Homebrew (broot, bat, glow, ...)
 [ -x /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
-export PATH=$HOME/.duckdb/cli/latest:$HOME/.local/share/omarchy/bin:$PATH
+export PATH=$HOME/.duckdb/cli/latest:$PATH
 export EDITOR=vim
 
 [ -f "$HOME/.config/broot/launcher/bash/br" ] && source "$HOME/.config/broot/launcher/bash/br"

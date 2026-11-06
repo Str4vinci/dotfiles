@@ -9,8 +9,7 @@
       "Read(//mnt/gdrive/**)",
       "Read(//mnt/onedrive/**)",
       "Bash(adb shell:*)",
-      "Bash(adb pull:*)",
-      "Bash(omarchy-restart-hypridle:*)"
+      "Bash(adb pull:*)"
     ],
     "defaultMode": "default"
   },
