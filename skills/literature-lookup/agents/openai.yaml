@@ -1,0 +1,4 @@
+interface:
+  display_name: "Literature lookup"
+  short_description: "Find, get, and read papers in full; list the ones you must fetch"
+  default_prompt: "Use $literature-lookup to find and read the literature on this topic."
