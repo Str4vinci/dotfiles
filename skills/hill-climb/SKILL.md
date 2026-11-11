@@ -13,7 +13,9 @@ prints, or measures.
 
 Pick the reference for the target before Round 0:
 
-- UI / UX, anything in a browser → `references/ui.md`
+- UI / UX, anything in a browser → `references/ui.md`. If the request is one
+  of its task presets (dashboard density, form, responsive, accessibility),
+  even a vague one such as "make it accessible", use the preset.
 - Anything else (PDFs, charts, prose, prompts and skills, CLI output, performance)
   → `references/targets.md`
 

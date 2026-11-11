@@ -66,6 +66,81 @@ Add these to the user's own points. Order is rough priority.
 9. **Industry practice**: when unsure how a control should behave, follow
    what the established tools in the domain do, and say which ones you checked.
 
+## Task presets
+
+Use a preset when the request names one of these jobs, even vaguely ("make it
+modern", "improve this form", "make it work on mobile", "make it accessible").
+Add the preset's rules to the rubric and its "Don't touch" list to the hard
+constraints. Do the "First" step in the baseline critique. The user's words
+outrank the preset. Ask only when they conflict.
+
+### Hierarchy and density (dashboards, busy views)
+
+- **Goal:** one focal point per view. A user finds the main number or action
+  at a glance.
+- **First:** list the 5 biggest hierarchy and density problems, ranked, before
+  you change anything.
+- **Tokens:** use the project's tokens (Tailwind config, CSS variables, theme
+  file). If there are none, define a spacing scale, a type scale, and a small
+  colour set: a neutral ramp, one accent, and status colours (success,
+  warning, error) used only for status. Then use only those.
+- **Don't touch:** data, queries, features. Ask before you remove a panel.
+- **Report:** the ranked problem list, each with a before and after crop.
+
+### Forms
+
+- **Goal:** completion rate.
+- **Rules:**
+  - One column. Labels above inputs. A placeholder is not a label.
+  - Validate a field on blur, not on each keystroke. After a field shows an
+    error, validate it on input, so the error goes away as soon as it is fixed.
+  - On submit, validate all fields and move focus to the first error.
+  - An error message says what to do ("Enter a date after 1 Jan 2026"), not
+    only what is wrong.
+  - Each control has focus, disabled, loading, and error states. The submit
+    button shows loading and blocks a second submit.
+  - Correct `type`, `inputmode`, and `autocomplete` on each input. Mark
+    required or optional fields the same way everywhere.
+- **Don't touch:** field order, field names, API calls, payload shape.
+- **Report:** a shot of each state of the form.
+
+### Responsive
+
+- **Viewports:** 320, 390, 768, 1440 px wide. These replace the default pair.
+  320 px is the WCAG reflow width (1.4.10).
+- **Rules:**
+  - No page-level horizontal scroll at any viewport.
+  - Touch targets ≥ 44 px on phone and tablet layouts (24 px is the AA floor).
+  - Nothing is reachable only by hover.
+  - Tables: choose by task. If users compare rows, keep a table: hide
+    low-priority columns, or scroll inside the table with a sticky first
+    column. If users read one record at a time, use stacked cards below 768 px.
+- **Don't touch:** the desktop layout. Compare its 1440 shot with the baseline
+  each round. Any change there is a regression.
+- **Report:** a shot per viewport, and a list of what broke at each and the fix.
+
+### Accessibility (WCAG 2.2 AA)
+
+- **First:** run axe (`@axe-core/playwright`) if the project has it or can add
+  it. Axe finds only part of the issues, so do the manual checks too.
+- **Contrast:** 4.5:1 for normal text. 3:1 for large text (≥ 24 px, or
+  ≥ 18.7 px bold), and for UI parts: input borders, icons, focus rings (1.4.11).
+- **Keyboard:** Tab reaches every action in a logical order. Enter, Space, and
+  Esc work as expected. No keyboard traps. The focus ring is visible and not
+  hidden by sticky headers or overlays (2.4.7, 2.4.11).
+- **Names:** use native elements first (`button`, `a`, `label`). Add
+  `aria-label` only where there is no visible text, for example icon buttons.
+  Images have `alt`, or `alt=""` if decorative.
+- **New in 2.2:** targets ≥ 24 px or spaced apart (2.5.8). Every drag has a
+  click alternative (2.5.7). Do not ask again for data the user already gave
+  (3.3.7). Login allows paste and password managers (3.3.8).
+- **Zoom:** content reflows at 320 px and works at 200% text size (1.4.4).
+- **Motion:** respect `prefers-reduced-motion`. This is AAA (2.3.3), but cheap.
+  Do it and label it as beyond AA.
+- **Don't touch:** visual design beyond what a fix needs.
+- **Report:** a table: criterion, issue, before, after, how checked. Do not say
+  "WCAG compliant". Say what you checked and what you did not.
+
 ## Traps
 
 - Do not judge from a screenshot taken before the page settled. A half-loaded
