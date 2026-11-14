@@ -11,11 +11,16 @@
 - Shoot every **state** of the target, not only the happy path: empty, loading,
   error, populated, long content, open menus and dialogs, hover and focus when
   they matter.
-- For tall pages, take a full-page shot (`fullPage: true`) in addition to the
-  viewport shot. The viewport shot tells you what is above the fold. The full-page shot tells
-  you the total height.
-- JPEG at quality ~70 is enough to judge layout and costs fewer tokens than PNG.
-  Use PNG only to judge fine text rendering or colour.
+- For tall pages, take a full-page shot (`fullPage: true`) for the baseline and
+  the final round, and in any round where the page height changes. The viewport
+  shot tells you what is above the fold. The full-page shot shows the whole
+  page, but a tall one is shrunk hard before you see it, so it shows the
+  overall shape, not detail.
+- Image tokens scale with pixel count (about width × height / 750; images larger
+  than about 1.15 megapixels are shrunk first), not with file size. JPEG vs
+  PNG changes only the file size. To cut tokens, cut pixels: `SCALE=0.7` halves
+  them and is still enough to judge layout. Use `SCALE=1` and PNG only to judge
+  fine text rendering or colour, and crop to the region.
 - Wait for the state, not for time, when you can: wait for a locator, then add a
   short settle delay for animations and canvases (WebGL needs one).
 - Prefer the project's tour script. With no tour script, start from
@@ -24,7 +29,7 @@
 
   ```
   node <skill-dir>/scripts/shoot.mjs <outdir> <url> [<url>...]
-  VIEWPORTS=1440x800,1280x600 FULL=1 PREFIX=round-2 node .../shoot.mjs ...
+  VIEWPORTS=1440x800,1280x600 SCALE=0.7 PREFIX=round-2 node .../shoot.mjs ...
   ```
 
   Run it from the project root so it finds the project's Playwright.
@@ -32,7 +37,11 @@
 ## Measurements that go with the screenshots
 
 Screenshots catch what a measurement misses. Measurements catch what the eye
-misses. Add the cheap ones to the harness:
+misses, and they cost almost no tokens, so run them on every viewport every
+round. They are the whole-page regression check. If a number changes where you
+did not expect it, look at that region. Add the cheap ones to the harness
+(`shoot.mjs` prints height, horizontal scroll, truncated text, and console
+errors):
 
 - Page or panel height in px, and whether the primary action is above the fold
   at the floor viewport.

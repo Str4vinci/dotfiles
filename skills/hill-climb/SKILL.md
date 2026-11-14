@@ -41,7 +41,8 @@ Do these before the first change. Show the setup to the user in a few lines.
 5. **Baseline.** Run the harness. Save the output as `before-*`. Critique the
    baseline against the rubric. The baseline critique is the first work list.
 6. **Budget.** Default 5 rounds, or `--rounds N`. Climbs pay off early; later
-   rounds polish.
+   rounds polish. Stop early when the worst open issue is cosmetic and is not
+   on the user's list.
 
 Where shots and the log go: follow the project's convention if one exists
 (`verlantis_designer` uses `docs/ux-shots/<date>/<topic>/` and a "Climb N"
@@ -58,13 +59,24 @@ section in the feedback doc). Otherwise use `docs/climbs/<date>-<topic>/` with a
    serve that one idea. Two ideas in one round means you can't tell which one
    helped.
 4. **Regenerate.** Run the harness. Name new output `round-N-*`.
-5. **Look.** Read the new artifacts and the previous ones next to each other.
-   Crop to the region that changed when detail matters
-   (`magick in.jpg -crop WxH+X+Y out.jpg`). Check the hard constraints.
+5. **Look.** Every image you read stays in context for the rest of the climb,
+   so read on purpose:
+   - Compare the new artifacts with the previous ones. Do not read a previous
+     image again if it is already in context. Read it again only after the
+     context was compacted or when you need a crop of it.
+   - Run the cheap measurements (the reference file lists them) on every
+     artifact. They are the whole-artifact check. Read the full artifact when
+     a measurement changed where you did not expect it, when the change can
+     move layout elsewhere (structure, spacing, breakpoints), and in the
+     final round.
+   - Otherwise, judge the change from a crop of the region that changed
+     (`magick in.jpg -crop WxH+X+Y out.jpg`).
+   - Check the hard constraints.
 6. **Critique.** Against the rubric, not against your intent:
    - Did the prediction come true?
-   - What got worse? Look at the whole artifact, not only the place you changed.
-     Regressions are usually somewhere else.
+   - What got worse? Check the whole artifact, not only the place you changed:
+     the measurements every round, and the full image when step 5 calls for
+     it. Regressions are usually somewhere else.
    - What is now the worst remaining issue?
    Be specific and skeptical. "Looks cleaner" is not a finding. "The Run button
    moved above the fold at 1280×600" is.

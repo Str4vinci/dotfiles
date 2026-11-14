@@ -9,9 +9,12 @@
 //   FULL=1     also take a full-page shot per viewport
 //   WAIT       CSS selector to wait for before shooting (optional)
 //   SETTLE     ms to wait after load    (default 1500)
+//   SCALE      device pixel ratio       (default 1; 0.7 makes a shot ~half the
+//              pixels, so ~half the image tokens; layout is unchanged)
 //
 // Output: <outdir>/<prefix>-<n>-<W>x<H>[-full].jpg, and one line per shot with
-// the page height and whether the page scrolls horizontally.
+// the page height, horizontal scroll, truncated-text count, and console errors.
+// That line is the cheap whole-page regression check: compare it every round.
 import { mkdirSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
@@ -41,12 +44,13 @@ const viewports = (process.env.VIEWPORTS ?? '1440x800,1280x600')
   .map((v) => v.split('x').map(Number));
 const prefix = process.env.PREFIX ?? 'shot';
 const settle = Number(process.env.SETTLE ?? 1500);
+const scale = Number(process.env.SCALE ?? 1);
 
 const browser = await chromium.launch();
 try {
   for (const [i, url] of urls.entries()) {
     for (const [width, height] of viewports) {
-      const page = await browser.newPage({ viewport: { width, height } });
+      const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: scale });
       const errors = [];
       page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
       await page.goto(url, { waitUntil: 'networkidle' }).catch((e) => errors.push(String(e)));
@@ -59,9 +63,14 @@ try {
       const m = await page.evaluate(() => ({
         h: document.documentElement.scrollHeight,
         hscroll: document.documentElement.scrollWidth > window.innerWidth,
+        trunc: [...document.querySelectorAll('body *')].filter((el) => {
+          if (el.scrollWidth <= el.clientWidth + 1) return false;
+          const cs = getComputedStyle(el);
+          return cs.textOverflow === 'ellipsis' || cs.overflowX === 'hidden';
+        }).length,
       }));
       console.log(
-        `${base}.jpg  height=${m.h}px${m.hscroll ? '  HORIZONTAL-SCROLL' : ''}` +
+        `${base}.jpg  height=${m.h}px  truncated=${m.trunc}${m.hscroll ? '  HORIZONTAL-SCROLL' : ''}` +
           (errors.length ? `  console-errors=${errors.length}: ${errors[0].slice(0, 120)}` : ''),
       );
       await page.close();
