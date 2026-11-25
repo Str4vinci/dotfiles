@@ -1,6 +1,6 @@
 ---
 name: reviewer
-description: Get a read-only second opinion from one outside model — GPT 6.2 Sol through Codex by default, Gemini 4 Neon through agy, or a Claude Opus subagent — on code, a diff, a PR, a plan, or a design. Use ONLY when the user invokes /reviewer or explicitly asks one of these models to review something. For three models at once, use the council skill.
+description: Get a read-only second opinion on code, a diff, a PR, a plan, or a design from one outside model. Defaults to Claude Opus when invoked from Codex and GPT 6.2 Sol when invoked from Claude Code. Use only when the user invokes reviewer ($reviewer or /reviewer) or explicitly asks a supported outside model to review something. For three models, use council.
 ---
 
 # Reviewer: one outside model, read-only
@@ -17,13 +17,17 @@ Do not hold back known fixes for the reviewer to find.
 
 | Reviewer | How to start it |
 | --- | --- |
-| GPT Sol (default) | `~/code/dotfiles/skills/_workers/codex-worker.sh review-gpt ro <workdir> <prompt-file> -m gpt-6.2-sol -c model_reasoning_effort="high"` |
+| Claude Opus from Codex (default) | `~/code/dotfiles/skills/_workers/claude-worker.sh review-claude ro <workdir> <prompt-file> --model opus --effort high` |
+| GPT Sol (default from Claude Code) | `~/code/dotfiles/skills/_workers/codex-worker.sh review-gpt ro <workdir> <prompt-file> -m gpt-6.2-sol -c model_reasoning_effort="high"` |
 | Gemini Neon | `~/code/dotfiles/skills/_workers/agy-worker.sh review-neon ro <workdir> <prompt-file> --model gemini-4-neon-high` |
-| Claude Opus | Agent tool, `subagent_type: general-purpose`, `model: opus`, `effort: high`, `run_in_background: true`. |
+| Claude Opus from Claude Code | Agent tool, `subagent_type: general-purpose`, `model: opus`, `effort: high`, `run_in_background: true`. |
 
-- Use GPT Sol unless the user names another reviewer.
-- Run the scripts through Bash with `run_in_background: true` and a `timeout` of
-  at least 1800000 ms.
+- Use the invoking app's default unless the user names another reviewer.
+- In Codex, start the script with `exec_command` and a short `yield_time_ms`,
+  then poll with `write_stdin` until it finishes. Use sandbox escalation for
+  the worker's network access when required.
+- In Claude Code, run scripts through Bash with `run_in_background: true` and
+  a `timeout` of at least 1800000 ms.
 - If the reviewer cannot start (CLI missing, not logged in, model not listed),
   tell the user. Do not put a different model in its place.
 - The run directory is `~/.cache/agent-workers/<ts>-<label>/`. See
