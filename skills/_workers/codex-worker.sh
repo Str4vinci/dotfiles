@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Run one Codex worker non-interactively and block until it finishes.
 #
-#   hp.sh <label> <ro|rw> <workdir> <prompt-file> [extra codex args...]
-#   hp.sh --resume <session-id> <label> <ro|rw> <workdir> <prompt-file> [extra codex args...]
+#   codex-worker.sh <label> <ro|rw> <workdir> <prompt-file> [extra codex args...]
+#   codex-worker.sh --resume <session-id> <label> <ro|rw> <workdir> <prompt-file> [extra codex args...]
 #
-# Writes to ~/.cache/horsepower/<timestamp>-<label>/:
+# Writes to ~/.cache/agent-workers/<timestamp>-<label>/:
 #   prompt.md  the prompt sent
 #   result.md  the worker's final message
 #   log.txt    full transcript (commands, output, session id)
@@ -34,7 +34,7 @@ esac
 [[ -d "$workdir" ]] || { echo "workdir not found: $workdir" >&2; exit 2; }
 [[ -f "$prompt_file" ]] || { echo "prompt file not found: $prompt_file" >&2; exit 2; }
 
-run_dir="$HOME/.cache/horsepower/$(date +%Y%m%d-%H%M%S)-${label//[^A-Za-z0-9_-]/_}"
+run_dir="$HOME/.cache/agent-workers/$(date +%Y%m%d-%H%M%S)-${label//[^A-Za-z0-9_-]/_}"
 mkdir -p "$run_dir"
 cp "$prompt_file" "$run_dir/prompt.md"
 echo "run_dir: $run_dir"
