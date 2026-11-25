@@ -27,6 +27,6 @@ Extracts punchy quotes for cards and drafts LinkedIn posts for Future Energy Lea
 ## Style & Constraints
 - **Language**: European Portuguese (pt-PT) strictly across all outputs.
 - **Unslop**: Write clean, concise, direct Portuguese without AI fluff or generic buzzwords.
-- **Strict Rule**: NEVER use em-dashes (— or –). Use colons, commas, periods, or standard hyphens instead.
+- **No em-dashes or en-dashes** (— or –): use colons, commas, periods, or standard hyphens instead. For these posts this overrides the unslop skill's rules on dashes and colons.
 - **Plain Quotes**: Quotes must be clean raw text without quotation marks or bold formatting.
 - **No Markdown Links in Post**: Do not insert URLs or `[Name](url)` links in the post text; keep names and tags as plain text for easy manual `@tagging`.

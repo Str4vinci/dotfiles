@@ -27,8 +27,7 @@ Do these before the first change. Show the setup to the user in a few lines.
    user named a broad area, pick the part that hurts most and say why.
 2. **Harness.** One command that regenerates every artifact for the target in a
    fixed state (same data, viewport, seed, fixture). Reuse the project's
-   harness when it has one (in `verlantis_designer` that is
-   `scripts/ux-tour.mjs`). Extend it, don't fork it. If there is none, write
+   harness when it has one. Extend it, don't fork it. If there is none, write
    one (for a browser page, `scripts/shoot.mjs` in this skill is a start).
    The harness must run unattended. A flaky harness gives you noise to climb.
 3. **Rubric.** What "better" means here, as a short checklist. Start from the
@@ -44,9 +43,8 @@ Do these before the first change. Show the setup to the user in a few lines.
    rounds polish. Stop early when the worst open issue is cosmetic and is not
    on the user's list.
 
-Where shots and the log go: follow the project's convention if one exists
-(`verlantis_designer` uses `docs/ux-shots/<date>/<topic>/` and a "Climb N"
-section in the feedback doc). Otherwise use `docs/climbs/<date>-<topic>/` with a
+Where shots and the log go: follow the project's convention if one exists.
+Otherwise use `docs/climbs/<date>-<topic>/` with a
 `log.md`. If the repo has no docs folder, ask before you add one.
 
 ## Each round
@@ -113,9 +111,9 @@ If two rounds in a row are reverted, or every remaining issue needs a
 structural change (a different layout, navigation, or information
 architecture), small steps will not reach it. Stop climbing and **jump**:
 propose 3–5 different directions as mockups in a separate file (the `mockup`
-skill), let the user pick one, then climb from there. In `verlantis_designer`,
-put real screenshot crops in the mockups for the "today" direction. Hand-built
-copies of today's UI distort the comparison.
+skill), let the user pick one, then climb from there. Put real screenshot
+crops in the mockups for the "today" direction. Hand-built copies of today's
+UI distort the comparison.
 
 ## Stop and ask
 

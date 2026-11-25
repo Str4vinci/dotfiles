@@ -42,7 +42,7 @@ If essential facts remain uncertain, use bounded language or identify the missin
 
 Draft the opening before the detailed sections.
 
-1. Start with the **10-second executive lead**: one plain-English sentence (max 25 words) stating the user or engineering outcome without code symbols, config keys, or bare PR numbers.
+1. Start with the **10-second executive lead**: one short plain-English sentence stating the user or engineering outcome without code symbols, config keys, or bare PR numbers.
 2. Explain the relevant behaviour or limitation before this change.
 3. State what was wrong, inconsistent, missing, or difficult.
 4. State what the PR changes and why the reader should care.
