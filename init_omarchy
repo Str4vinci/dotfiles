@@ -46,7 +46,7 @@ yay -S --noconfirm gazelle-tui
 
 # Stow dotfiles (run from dotfiles repo root)
 mkdir -p "$HOME/.claude/skills" "$HOME/.codex/skills"
-for package in bash vim tmux zsh git bin hypr omarchy agent-skills; do
+for package in bash vim tmux zsh git bin hypr omarchy foot agent-skills; do
   stow_package "$package"
 done
 
