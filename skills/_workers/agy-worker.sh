@@ -30,8 +30,9 @@ shift 4
 case "$mode" in
   # Headless agy cannot prompt, so it denies every read outside the workspace (and any
   # path written with ~) and then returns an empty answer. Plan mode writes nothing,
-  # so allowing reads everywhere is safe.
-  ro) mode_args=(--mode plan --settings '{"permissions":{"allow":["read_file(*)"]}}') ;;
+  # so allowing reads everywhere is safe. --settings replaces the user's permissions, so this
+  # repeats ~/.gemini/antigravity-cli/settings.json (command(*) and its denies) and adds read_file(*).
+  ro) mode_args=(--mode plan --settings '{"permissions":{"allow":["read_file(*)","command(*)"],"deny":["command(sudo *)","command(sudo)","command(rm -rf *)","command(rm -r *)"]}}') ;;
   rw) mode_args=(--mode accept-edits --sandbox) ;;
   *) echo "mode must be ro or rw, got: $mode" >&2; exit 2 ;;
 esac
