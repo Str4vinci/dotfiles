@@ -36,6 +36,12 @@ In plan mode, agy writes an `implementation_plan.md` artifact instead of
 answering. `agy-worker.sh` puts a line at the start of every `ro` prompt that
 tells agy to answer directly.
 
+Headless agy cannot ask for a permission. It denies the tool, then reports
+`SUCCESS` with an empty answer. In `ro` mode, `agy-worker.sh` allows
+`read_file(*)` for the session, so agy can read files outside the workdir and
+paths written with `~`. If the answer is still empty, the script exits 1 and
+prints the denied tools on stderr and in `meta.txt`.
+
 ## Requirements
 
 - [Codex CLI](https://developers.openai.com/codex/cli), signed in (`codex login`).

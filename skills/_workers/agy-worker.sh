@@ -28,7 +28,10 @@ label="$1" mode="$2" workdir="$3" prompt_file="$4"
 shift 4
 
 case "$mode" in
-  ro) mode_args=(--mode plan) ;;
+  # Headless agy cannot prompt, so it denies every read outside the workspace (and any
+  # path written with ~) and then returns an empty answer. Plan mode writes nothing,
+  # so allowing reads everywhere is safe.
+  ro) mode_args=(--mode plan --settings '{"permissions":{"allow":["read_file(*)"]}}') ;;
   rw) mode_args=(--mode accept-edits --sandbox) ;;
   *) echo "mode must be ro or rw, got: $mode" >&2; exit 2 ;;
 esac
@@ -61,6 +64,12 @@ session_id="$(jq -r '.conversation_id // empty' <<<"$json" 2>/dev/null)"
 agy_status="$(jq -r '.status // empty' <<<"$json" 2>/dev/null)"
 jq -r '.response // empty' <<<"$json" >"$run_dir/result.md" 2>/dev/null
 [[ "$status" -eq 0 && -n "$agy_status" && "$agy_status" != "SUCCESS" ]] && status=1
+denied="$(jq -r '[.denied_actions[]?.action] | unique | join(", ")' <<<"$json" 2>/dev/null)"
+# agy reports SUCCESS with an empty answer when a tool was denied; treat that as a failure.
+if [[ ! "$(tr -d '[:space:]' <"$run_dir/result.md")" ]]; then
+  [[ "$status" -eq 0 ]] && status=1
+  [[ -n "$denied" ]] && echo "agy denied: $denied (empty answer). Allow it with --settings or --add-dir." >&2
+fi
 
 {
   echo "label: $label"
@@ -68,12 +77,13 @@ jq -r '.response // empty' <<<"$json" >"$run_dir/result.md" 2>/dev/null
   echo "workdir: $workdir"
   echo "session_id: ${session_id:-$resume_id}"
   echo "agy_status: ${agy_status:-unknown}"
+  [[ -n "$denied" ]] && echo "denied: $denied"
   echo "exit: $status"
 } >"$run_dir/meta.txt"
 
 cat "$run_dir/meta.txt"
 echo "--- result ---"
-if [[ -s "$run_dir/result.md" ]]; then
+if [[ "$(tr -d '[:space:]' <"$run_dir/result.md")" ]]; then
   cat "$run_dir/result.md"
 else
   echo "(no result; see log tail)"
